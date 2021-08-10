@@ -1,4 +1,5 @@
 const productTypeModel = require("../models/productType.models");
+const productById = require("../models/product.models");
 
 const getProductType = async (req, res) => {
   try {
@@ -17,6 +18,16 @@ const getProductType = async (req, res) => {
   // })
 };
 
+const getProductById = async (req, res) => {
+  try {
+    const data = await productById.getProductById(req.params);
+    res.render('productDetail.hbs', {product: data.recordset[0]})
+  } catch (err) {
+    console.log("Error when get product by id", err.message);
+    res.json('Error when get product by id ', err.message)
+  }
+}
+
 module.exports = {
-  getProductType,
+  getProductType, getProductById
 };
