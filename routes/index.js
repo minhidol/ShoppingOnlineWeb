@@ -6,5 +6,6 @@ const billRoutes = require("./bill.route");
 
 router.use("/product", productRoutes);
 router.use("/bill", billRoutes);
+router.use("/home", productRoutes)
 
 module.exports = router;

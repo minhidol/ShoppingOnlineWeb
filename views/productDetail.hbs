@@ -68,8 +68,8 @@
                             <p>Choose quantity:</p>
                             <div class="quantity d-flex flex-row">
                                 <button class="qty-down" id="btnMinus" onclick="minus()" disabled="true">-</button>
-                                <input type="text" class="quantity-input text-center" value="0" id="numQty" onchange="change()"
-                                    style="border: 1px solid rgba(0, 0, 0, 0.125);" />
+                                <input type="text" class="quantity-input text-center" value="0" id="numQty"
+                                    onchange="change()" style="border: 1px solid rgba(0, 0, 0, 0.125);" />
                                 <button class="qty-up" id="btnPlus" onclick="plus()">+</button>
                             </div>
                             <span class="btn btn-primary my-3">Add to cart</span>
@@ -83,14 +83,14 @@
                 <div class="rating-wrapper">
                     <ul class="list-unstyled">
                         {{#each rating}}
-                            <li>
-                                <img src="/images/avatar.png" class="user-avatar-rating">
-                                <div class="rating-container">
-                                    <h6>{{Username}}</h6>
-                                    <p>{{Comment}}</p>
+                        <li>
+                            <img src="/images/avatar.png" class="user-avatar-rating">
+                            <div class="rating-container">
+                                <h6>{{Username}}</h6>
+                                <p>{{Comment}}</p>
 
-                                </div>
-                            </li>
+                            </div>
+                        </li>
                         {{/each}}
                     </ul>
                 </div>
@@ -161,7 +161,46 @@
     <!--  isotope plugin cdn  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
         integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-    <script src="/javascripts/productDetail.js"></script>
+    <script>
+        minus = () => {
+            var numQty = parseInt(document.getElementById("numQty").value)
+            numQty -= 1;
+            if (numQty == 0) {
+                document.getElementById("btnMinus").disabled = true;
+                document.getElementById("btnPlus").disabled = false;
+            }
+            else
+                document.getElementById("btnMinus").disabled = false;
+            document.getElementById("numQty").value = numQty.toString()
+        }
+
+        plus = () => {
+            var numQty = parseInt(document.getElementById("numQty").value)
+            numQty += 1;
+            if (numQty >= {{{stockqty}}})
+                document.getElementById("btnPlus").disabled = true;
+            document.getElementById("numQty").value = numQty.toString()
+            document.getElementById("btnMinus").disabled = false;
+        }
+
+        change = () => {
+            var numQty = parseInt(document.getElementById("numQty").value)
+            if (numQty <= 0) {
+                document.getElementById("numQty").value = 0
+                document.getElementById("btnMinus").disabled = true;
+                document.getElementById("btnPlus").disabled = false;
+            }
+            if (numQty > 0 && numQty < {{{stockqty}}}) {
+                document.getElementById("btnMinus").disabled = false;
+                document.getElementById("btnPlus").disabled = false;
+            }
+            if (numQty >= {{{stockqty}}}) {
+                document.getElementById("numQty").value = {{{stockqty}}}
+                document.getElementById("btnPlus").disabled = true;
+                document.getElementById("btnMinus").disabled = false;
+            }
+        }
+    </script>
 </body>
 
 </html>

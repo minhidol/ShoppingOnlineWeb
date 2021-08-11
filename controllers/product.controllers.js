@@ -1,5 +1,5 @@
 const productTypeModel = require("../models/productType.models");
-const productById = require("../models/product.models");
+const product = require("../models/product.models");
 const ratingModel = require("../models/rating.models");
 
 const getProductType = async (req, res) => {
@@ -14,10 +14,11 @@ const getProductType = async (req, res) => {
 
 const getProductById = async (req, res) => {
   try {
-    const data = await productById.getProductById(req.params);
+    const data = await product.getProductById(req.params);
     const rating = await ratingModel.getRating(req.params);
     res.render("productDetail.hbs", {
       product: data.recordset[0],
+      stockqty: data.recordset[0].StockQty,
       rating: rating,
     });
   } catch (err) {
@@ -26,7 +27,19 @@ const getProductById = async (req, res) => {
   }
 };
 
+const getAllProducts = async (req, res) => {
+  try {
+    const data = await product.getAllProducts(parseInt(req.params['pageid']) - 1);
+    res.render('testCartProductIndex.hbs', {products: data.recordset, page: req.params['pageid']});
+  }
+  catch (er) {
+    console.log("Error when get products", err.message);
+    res.json("Error when get products", err.message);
+  }
+}
+
 module.exports = {
   getProductType,
   getProductById,
+  getAllProducts
 };

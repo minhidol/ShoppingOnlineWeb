@@ -15,6 +15,20 @@ const getProductById = async (body) => {
   }
 };
 
+const getAllProducts = async (body) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("page", sql.Int, body)
+      .execute("sp_getAllProducts");
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getProductById,
+  getAllProducts
 };
