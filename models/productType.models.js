@@ -1,17 +1,17 @@
 //const {connectionString, sql} = require('./connectionDB')
 //const sql = require('mssql')
-var config = require('./DBConfig')
-const sql = require('mssql/msnodesqlv8')
+var config = require("./DBConfig");
+const sql = require("mssql/msnodesqlv8");
 
-const getProductType = async() => {
-    try{
-        let pool = await sql.connect(config)
-        let products = await pool.request().query('select * from ProductType')
-        return products.recordset
-    }catch(err){
-        throw err
-    }
-}
+const getProductType = async () => {
+  try {
+    let pool = await sql.connect(config);
+    let products = await pool.request().query("select * from ProductType");
+    return products.recordset;
+  } catch (err) {
+    throw err;
+  }
+};
 
 // const getProductType = async(callback) => {
 //     // var query = 'select * from ProductType'
@@ -23,13 +23,8 @@ const getProductType = async() => {
 //     //     callback(null, data)
 //     // });
 
-  
 // }
 
 module.exports = {
-    getProductType
-}
-
-
-
-
+  getProductType,
+};

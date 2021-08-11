@@ -300,3 +300,25 @@ nav img {
   align-items: center;
   justify-content: flex-start;
 }
+
+/* rating section */
+.user-avatar-rating {
+  border-radius: 100%;
+  width: 4%;
+  background-color: white;
+}
+
+.rating-wrapper li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  margin-top: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.rating-container {
+  margin-left: 20px;
+  margin-top: 10px;
+}

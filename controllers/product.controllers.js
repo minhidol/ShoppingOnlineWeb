@@ -1,5 +1,6 @@
 const productTypeModel = require("../models/productType.models");
 const productById = require("../models/product.models");
+const ratingModel = require("../models/rating.models");
 
 const getProductType = async (req, res) => {
   try {
@@ -7,27 +8,25 @@ const getProductType = async (req, res) => {
     res.json(data);
   } catch (err) {
     console.log("Error when get product type", err.message);
-    res.json('Error when get product type ', err.message)
+    res.json("Error when get product type ", err.message);
   }
-
-  // productTypeModel.getProductType(function(err, data){
-  //     if(err){
-  //         console.log(err)
-  //     }
-  //     res.send(data)
-  // })
 };
 
 const getProductById = async (req, res) => {
   try {
     const data = await productById.getProductById(req.params);
-    res.render('productDetail.hbs', {product: data.recordset[0]})
+    const rating = await ratingModel.getRating(req.params);
+    res.render("productDetail.hbs", {
+      product: data.recordset[0],
+      rating: rating,
+    });
   } catch (err) {
     console.log("Error when get product by id", err.message);
-    res.json('Error when get product by id ', err.message)
+    res.json("Error when get product by id ", err.message);
   }
-}
+};
 
 module.exports = {
-  getProductType, getProductById
+  getProductType,
+  getProductById,
 };
