@@ -38,8 +38,19 @@ const getAllProducts = async (req, res) => {
   }
 }
 
+const searchProducts = async (req, res) => {
+  try {
+    const data = await product.searchProduct(req.query.name);
+    res.render('searchResult.hbs', {products: data.recordset})
+  }
+  catch(err) {
+    console.log('error', err)
+  }
+}
+
 module.exports = {
   getProductType,
   getProductById,
-  getAllProducts
+  getAllProducts,
+  searchProducts
 };

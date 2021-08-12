@@ -59,13 +59,8 @@
         </ul>
     </nav>
     <main>
-        <section id="banner">
-            <div class="item" style="width: 100%;">
-                <img src="/images/banner.png" alt="Banner3">
-            </div>
-        </section>
         <section id="new-items">
-            <h2>Danh mục sản phẩm</h2>
+            <h2>Sản phầm tìm thấy</h2>
             <hr>
             <div class="row my-3 mx-3" style="padding: 30px 50px 30px 50px;">
                 {{#each products}}
@@ -89,22 +84,6 @@
                 </div>
                 {{/each}}
             </div>
-            <nav aria-label="Page navigation example" style="margin-left: 75px;">
-                <ul class="pagination">
-                    <li id="first" class="page-item"><a class="page-link" onclick="toPrev()">Previous</a></li>
-                    <li id="1" class="page-item"><a class="page-link" href="/home/page/1">1</a></li>
-                    <li id="2" class="page-item"><a class="page-link" href="/home/page/2">2</a></li>
-                    <li id="3" class="page-item"><a class="page-link" href="/home/page/3">3</a></li>
-                    <li id="4" class="page-item"><a class="page-link" href="/home/page/4">4</a></li>
-                    <li id="5" class="page-item"><a class="page-link" href="/home/page/5">5</a></li>
-                    <li id="6" class="page-item"><a class="page-link" href="/home/page/6">6</a></li>
-                    <li id="7" class="page-item"><a class="page-link" href="/home/page/7">7</a></li>
-                    <li id="8" class="page-item"><a class="page-link" href="/home/page/8">8</a></li>
-                    <li id="9" class="page-item"><a class="page-link" href="/home/page/9">9</a></li>
-                    <li id="10" class="page-item"><a class="page-link" href="/home/page/10">10</a></li>
-                    <li id="last" class="page-item"><a class="page-link" onclick="toNext()">Next</a></li>
-                </ul>
-            </nav>
         </section>
     </main>
 
@@ -176,25 +155,6 @@
     <!-- Custom Javascript -->
     {{!--
     <script src="../index.js"></script> --}}
-    <script>
-        document.getElementById({{{page}}}).classList.add('active')
-        if (parseInt({{{page}}}) == 10)
-            document.getElementById("last").classList.add('disabled')
-        if (parseInt({{{page}}}) == 1)
-            document.getElementById("first").classList.add('disabled')
-        toNext = () => {
-            if (parseInt({{{page}}}) + 1 > 10)
-                return;
-            var temp = (parseInt({{{page}}}) + 1).toString()
-            window.location.href = '/home/page/' + temp;
-        }
-        toPrev = () => {
-            if (parseInt({{{page}}}) - 1 < 1)
-                return;
-            var temp = (parseInt({{{page}}}) - 1).toString()
-            window.location.href = '/home/page/' + temp;
-        }
-    </script>
 </body>
 
 </html>

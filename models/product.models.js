@@ -28,7 +28,21 @@ const getAllProducts = async (body) => {
   }
 }
 
+const searchProduct = async (body) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("tensp", sql.Char, body)
+      .execute("sp_SearchProductByName");
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getProductById,
-  getAllProducts
+  getAllProducts,
+  searchProduct
 };
