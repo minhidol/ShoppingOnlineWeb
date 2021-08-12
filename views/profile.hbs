@@ -55,10 +55,12 @@
                             <i class="far fa-user fa-2x"></i>
                         </div>
                         <div class="user-profile d-flex flex-column">
-                            <h5>Username</h5>
-                            <a href="">
-                                <h6 class="text-secondary"><i class="far fa-edit"></i> Edit profile</h5>
-                            </a>
+                            {{#each Account}}
+                                <h5>{{Username}}</h5>
+                                <a href="">
+                                    <h6 class="text-secondary"><i class="far fa-edit"></i> Edit profile</h5>
+                                </a>
+                            {{/each}}
                         </div>
                     </div>
                     <ul class="list-unstyled side-menu">
@@ -86,10 +88,16 @@
                                     <p>Voucher</p>
                                 </div>
                             </a></li>
+                        <li><a href="">
+                            <div class="menu-item">
+                                <i class="fas fa-store"></i>
+                                <p>Open Shop</p>
+                            </div>
+                        </a></li>
                     </ul>
                 </div>
                 <div class="order-content-wrapper col-9 p-3">
-                    <div class="bg-light mb-3 p-4">
+                    {{!-- <div class="bg-light mb-3 p-4">
                         <div class="d-flex flex-row" style="justify-content: space-between;">
                             <h6 class="text-secondary">2021-08-03</h6>
                             <h6 class="text-primary mt-1">Chờ xác nhận</h6>
@@ -132,7 +140,7 @@
                         <h4 class="text-right">Total:
                             <span class="text-danger"><small>₫</small>0</span>
                         </h4>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
