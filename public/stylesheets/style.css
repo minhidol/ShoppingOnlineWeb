@@ -46,7 +46,8 @@ nav img {
 #new-items,
 #books-list,
 #shoes-list,
-#payment-confirm {
+#payment-confirm,
+#shop-header {
   margin: 0 20px 50px 20px;
   /* padding-left: 50px;
   padding-right: 50px; */
@@ -324,4 +325,15 @@ nav img {
 .rating-container {
   margin-left: 20px;
   margin-top: 10px;
+}
+
+.shop-avatar {
+  border-radius: 100%;
+  width: 10%;
+  background-color: white;
+}
+
+#shop-header {
+  align-items: center;
+  justify-content: space-around;
 }

@@ -6,6 +6,7 @@ const shopInterface = async (req, res) => {
     let data = await shopModel.ownShop(req.params.id);
     let html = "";
     if (data[0].ShopID == null) {
+      // if not, send html interface for opening shop
       html += '<div class="bg-light mb-3 p-4">';
       html += `<form action=http://localhost:3000/profile/${data[0].AccountID}/openShop method='POST'>`;
       html += '<div class="form-group">';
@@ -32,11 +33,9 @@ const shopInterface = async (req, res) => {
 
       res.send(html);
     } else {
+      // otherwise, show the shop information
       res.send("Shop");
     }
-
-    // if not, send html interface for opening shop
-    // otherwise, show the shop information
   } catch (error) {}
 };
 
