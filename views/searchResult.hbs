@@ -20,12 +20,18 @@
         integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <title>Document</title>
+    <style>
+        .item {
+            width: 80%;
+        }
+    </style>
 </head>
 
 <body>
     <nav class="menubar bg-dark">
-        <a href="index.html" class="logo">
+        <a class="logo">
             <img src="/images/logo.png" alt="">
         </a>
         <ul class="links list-unstyled m-0">
@@ -39,64 +45,48 @@
                 <a href="#" class="nav-link">Link 3</a>
             </li>
         </ul>
-        <form action="" class="form-inline">
-            <input type="text" class="form-control mr-2" name="search">
-            <button class="btn btn-primary">Search</button>
+        <form action="/product/search" class="form-inline">
+            <input type="text" class="form-control mr-2" name="name" id="searchInput">
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
         <ul class="button-group list-unstyled m-0">
-            {{!-- <li>
-                <button class="btn btn-success mr-3">Login</button>
-            </li> --}}
             <li>
-                <button class="btn btn-success">User</button>
+                <button class="btn btn-success mr-3">Login</button>
+            </li>
+            <li>
+                <button class="btn btn-success">Sign up</button>
             </li>
         </ul>
     </nav>
-    <main class="w-75 m-auto">
-        <div class="d-flex flex-column w-100">
-            <section id="product m-4">
-                <div class="row p-3 m-auto">
-                    <div class="col-6">
-                        <img src="/images/Books/book1.jpeg" class="img-fluid" id="product-img" alt="">
-                    </div>
-                    {{#with product}}
-                    <div class="col-6 p-5">
-                        <div class="product-info d-flex flex-column">
-                            <h5>{{ProductName}}</h5>
-                            <p>{{Description}}</p>
-                            <p>{{ProductPrice}} USD</p>
-                            <p>Choose quantity:</p>
-                            <div class="quantity d-flex flex-row">
-                                <button class="qty-down" id="btnMinus" onclick="minus()" disabled="true">-</button>
-                                <input type="text" class="quantity-input text-center" value="0" id="numQty"
-                                    onchange="change()" style="border: 1px solid rgba(0, 0, 0, 0.125);" />
-                                <button class="qty-up" id="btnPlus" onclick="plus()">+</button>
+    <main>
+        <section id="new-items">
+            <h2>Sản phầm tìm thấy</h2>
+            <hr>
+            <div class="row my-3 mx-3" style="padding: 30px 50px 30px 50px;">
+                {{#each products}}
+                <div class="col-3">
+                    <div class="card" style="height:750px; margin-top:12px">
+                        <img src="/images/image.png" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <h4 class="card-title" style="height: 100px;">{{ProductName}}</h4>
+                            <div class="card-text" style="height: 200px;">
+                                <p class="text-uppercase" style="max-height: 150px; overflow-y:auto">{{Description}}</p>
                             </div>
-                            <span class="btn btn-primary my-3">Add to cart</span>
+                            <div class="card-text" style="height: 50px;">
+                                <p class="price">{{ProductPrice}} USD</p>
+                            </div>
+                            <div class="card-footer">
+                                <button href="" class="btn btn-primary" id='addProductToCart'
+                                    onclick="addProductToCart(event)">Thêm sản phẩm</button>
+                            </div>
                         </div>
                     </div>
-                    {{/with}}
                 </div>
-            </section>
-            <section id="product-rating" class="mx-4 w-75 mb-4">
-                <h2>Customer's rating:</h2>
-                <div class="rating-wrapper">
-                    <ul class="list-unstyled">
-                        {{#each rating}}
-                        <li>
-                            <img src="/images/avatar.png" class="user-avatar-rating">
-                            <div class="rating-container">
-                                <h6>{{Username}}</h6>
-                                <p>{{Comment}}</p>
-
-                            </div>
-                        </li>
-                        {{/each}}
-                    </ul>
-                </div>
-            </section>
-        </div>
+                {{/each}}
+            </div>
+        </section>
     </main>
+
     <footer id="footer" class="bg-dark text-white py-5">
         <div class="container-fluid">
             <div class="row">
@@ -109,7 +99,7 @@
                     </p>
                 </div>
                 <div class="col-4">
-                    <h4>Feedback</h4>
+                    <h4>Subcribe</h4>
                     <form action="" class="form-row">
                         <div class="col">
                             <input type="text" class="form-control" placeholder="Email">
@@ -140,7 +130,7 @@
     </footer>
     <div class="row bg-dark">
         <div class="col-12 text-center text-white">
-            <p>&copy; Copyright 2021. Design By <a href="">Nguyen Le Hoang Nam</a> </p>
+            <p>&copy; Copyright 2021. Design By <a href="">Nhóm 5</a> </p>
         </div>
     </div>
 
@@ -161,46 +151,10 @@
     <!--  isotope plugin cdn  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
         integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-    <script>
-        minus = () => {
-            var numQty = parseInt(document.getElementById("numQty").value)
-            numQty -= 1;
-            if (numQty == 0) {
-                document.getElementById("btnMinus").disabled = true;
-                document.getElementById("btnPlus").disabled = false;
-            }
-            else
-                document.getElementById("btnMinus").disabled = false;
-            document.getElementById("numQty").value = numQty.toString()
-        }
-
-        plus = () => {
-            var numQty = parseInt(document.getElementById("numQty").value)
-            numQty += 1;
-            if (numQty >= {{{stockqty}}})
-                document.getElementById("btnPlus").disabled = true;
-            document.getElementById("numQty").value = numQty.toString()
-            document.getElementById("btnMinus").disabled = false;
-        }
-
-        change = () => {
-            var numQty = parseInt(document.getElementById("numQty").value)
-            if (numQty <= 0) {
-                document.getElementById("numQty").value = 0
-                document.getElementById("btnMinus").disabled = true;
-                document.getElementById("btnPlus").disabled = false;
-            }
-            if (numQty > 0 && numQty < {{{stockqty}}}) {
-                document.getElementById("btnMinus").disabled = false;
-                document.getElementById("btnPlus").disabled = false;
-            }
-            if (numQty >= {{{stockqty}}}) {
-                document.getElementById("numQty").value = {{{stockqty}}}
-                document.getElementById("btnPlus").disabled = true;
-                document.getElementById("btnMinus").disabled = false;
-            }
-        }
-    </script>
+    <script src="/javascripts/addProductToCart.js"></script>
+    <!-- Custom Javascript -->
+    {{!--
+    <script src="../index.js"></script> --}}
 </body>
 
 </html>

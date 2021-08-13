@@ -55,41 +55,52 @@
                             <i class="far fa-user fa-2x"></i>
                         </div>
                         <div class="user-profile d-flex flex-column">
-                            <h5>Username</h5>
-                            <a href="">
-                                <h6 class="text-secondary"><i class="far fa-edit"></i> Edit profile</h5>
-                            </a>
+                            {{#each Account}}
+                                <h5>{{Username}}</h5>
+                                <a href="">
+                                    <h6 class="text-secondary"><i class="far fa-edit"></i> Edit profile</h5>
+                                </a>
+                            {{/each}}
                         </div>
                     </div>
                     <ul class="list-unstyled side-menu">
-                        <li><a href="">
+                        {{#each Account}}
+                        <li><button class="btn">
                                 <div class="menu-item">
                                     <i class="far fa-user"></i>
                                     <p>Account information</p>
                                 </div>
-                            </a></li>
-                        <li><a href="">
+                            </button></li>
+                        <li><button class="btn">
                                 <div class="menu-item">
                                     <i class="fas fa-file-invoice"></i>
                                     <p>Order history</p>
                                 </div>
-                            </a></li>
-                        <li><a href="">
+                            </button></li>
+                        <li><button class="btn">
                                 <div class="menu-item">
                                     <i class="far fa-bell"></i>
                                     <p>Notification</p>
                                 </div>
-                            </a></li>
-                        <li><a href="">
+                            </button></li>
+                        <li><button class="btn">
                                 <div class="menu-item">
                                     <i class="fas fa-ad"></i>
                                     <p>Voucher</p>
                                 </div>
-                            </a></li>
+                            </button></li>
+                        <li id="openShopBtn"><button class="btn">
+                            <div class="menu-item">
+                                <i class="fas fa-store"></i>
+                                <p>Open Shop</p>
+                            </div>
+                        </button></li>
+                        {{/each}}
                     </ul>
                 </div>
-                <div class="order-content-wrapper col-9 p-3">
-                    <div class="bg-light mb-3 p-4">
+                <div class="order-content-wrapper col-9 p-3" id="order-content-wrapper">
+                    
+                    {{!-- <div class="bg-light mb-3 p-4">
                         <div class="d-flex flex-row" style="justify-content: space-between;">
                             <h6 class="text-secondary">2021-08-03</h6>
                             <h6 class="text-primary mt-1">Chờ xác nhận</h6>
@@ -110,29 +121,7 @@
                         <h4 class="text-right">Total:
                             <span class="text-danger"><small>₫</small>0</span>
                         </h4>
-                    </div>
-                    <div class="bg-light mb-3 p-4">
-                        <div class="d-flex flex-row" style="justify-content: space-between;">
-                            <h6 class="text-secondary">2021-08-03</h6>
-                            <h6 class="text-primary mt-1">Chờ xác nhận</h6>
-                        </div>
-                            <div class="my-3">
-
-                                <div class="order-content d-flex flex-row border-top p-2">
-                                    <div class="order-info">
-                                        <img src="../img/image.png" width="10%">
-                                        <div class="ml-3 mt-3">
-                                            <h5 class="text-left">Tên sản phẩm</h5>
-                                            <p>x1</p>
-                                        </div>
-                                    </div>
-                                    <p><small>₫</small>0</p>
-                                </div>
-                            </div>
-                        <h4 class="text-right">Total:
-                            <span class="text-danger"><small>₫</small>0</span>
-                        </h4>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </section>
@@ -183,7 +172,7 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
@@ -194,6 +183,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
 
     <!-- Custom Javascript -->
-    <script src="../index.js"></script>
+    <script type="text/javascript">
+        var openShopBtn = document.querySelector("#openShopBtn"); 
+        openShopBtn.addEventListener('click', function(){
+            $.ajax({
+                url: location.href +  '/openShop', 
+                async: false,
+                success: function (data) {
+                    $('#order-content-wrapper').html(data); 
+                    console.log(data);
+                }
+            })
+        })
+    </script>
 </body>
 </html>

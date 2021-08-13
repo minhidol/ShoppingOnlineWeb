@@ -13,14 +13,14 @@
 } */
 
 //của Khoa
-const sql = require("mssql");
-require("msnodesqlv8");
-var config = {
-  driver: 'msnodesqlv8',
-  connectionString: 'Driver={SQL Server Native Client 11.0};Server={KHOADO-PC\\SQLEXPRESS};Database={ShoppingOnlineWeb};Trusted_Connection={yes};',
+ const sql = require("mssql");
+ require("msnodesqlv8");
+ var config = {
+   driver: 'msnodesqlv8',
+   connectionString: 'Driver={SQL Server Native Client 11.0};Server={KHOADO-PC\\SQLEXPRESS};Database={ShoppingOnlineWeb};Trusted_Connection={yes};',
 };
 
-// module.exports = config
+module.exports = config
 
 // Nam
 /* const config = {
