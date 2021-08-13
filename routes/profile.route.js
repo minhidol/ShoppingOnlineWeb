@@ -8,4 +8,7 @@ router.get("/:id", profileController.getProfile);
 router.get("/:id/openShop", shopControllers.shopInterface);
 router.post("/:id/openShop", shopControllers.openShop);
 
+router.get("/:id/openRating", shopControllers.ratingInterface);
+router.post("/:id/openRating", shopControllers.RateProduct);
+
 module.exports = router;
