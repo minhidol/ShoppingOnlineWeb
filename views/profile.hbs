@@ -171,7 +171,7 @@
         var openShopBtn = document.querySelector("#openShopBtn"); 
         openShopBtn.addEventListener('click', function(){
             $.ajax({
-                url: location.href +  '/openShop', 
+                url: location.href +  'openShop', 
                 async: false,
                 success: function (data) {
                     $('#order-content-wrapper').html(data); 
@@ -183,7 +183,7 @@
         var openRatingBtn = document.querySelector("#openRatingBtn"); 
         openRatingBtn.addEventListener('click', function(){
             $.ajax({
-                url: location.href +  '/openRating', 
+                url: location.href +  'openRating', 
                 async: false,
                 success: function (data) {
                     $('#order-content-wrapper').html(data); 
