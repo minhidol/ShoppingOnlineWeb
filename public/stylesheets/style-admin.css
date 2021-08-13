@@ -149,12 +149,6 @@ body{
     border: 1px solid rgba(0, 0, 0, 2);
 }
 
-.search label i.fa {
-    position: absolute;
-    left: 15px;
-    top: 4px;
-}
-
 .user{
     position: relative;
     min-width: 50px;
@@ -212,6 +206,7 @@ body{
     padding: 20px;
     padding-top: 0;
     display: grid;
+    grid-gap: 20px;
     grid-template-columns: 2fr, 1fr;
     
 }
@@ -273,21 +268,28 @@ body{
 
 .details .recentOrders table thead tr td:last-child,
 .details .recentOrders table tbody tr td:last-child{
-    text-align: right;
+    text-align: center;
+}
+
+.details .recentOrders table thead tr td:nth-child(1),
+.details .recentOrders table tbody tr td:nth-child(1){
+    text-align: center;
+    padding-left: 0px;
 }
 
 .details .recentOrders table thead tr td:nth-child(2),
 .details .recentOrders table tbody tr td:nth-child(2){
-    text-align: right;
-    padding-right: 20px;
+    text-align: center;
+    padding-left: 60px;
 }
 
 .details .recentOrders table thead tr td:nth-child(3),
 .details .recentOrders table tbody tr td:nth-child(3){
     text-align: center;
+    padding-left: 20px;
 }
 
-.status {
+.rating {
     position: relative;
     padding: 2px 4px;
     background: #f00;
@@ -312,4 +314,12 @@ body{
 
 .inprogress{
     background: #179;
+}
+
+.details .topShop{
+    position: relative;
+    display: grid;
+    min-height: 530px;
+    background: #fff;
+    padding: 20px;
 }
