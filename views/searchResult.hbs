@@ -31,7 +31,7 @@
 
 <body>
     <nav class="menubar bg-dark">
-        <a class="logo">
+        <a href="/home/page/1" class="logo">
             <img src="/images/logo.png" alt="">
         </a>
         <ul class="links list-unstyled m-0">
@@ -66,7 +66,7 @@
                 {{#each products}}
                 <div class="col-3">
                     <div class="card" style="height:750px; margin-top:12px">
-                        <img src="/images/image.png" alt="" class="card-img-top">
+                        <img src={{ProductImage}} height="270px" alt="" class="card-img-top">
                         <div class="card-body">
                             <h4 class="card-title" style="height: 100px;">{{ProductName}}</h4>
                             <div class="card-text" style="height: 200px;">

@@ -56,7 +56,22 @@ const openShop = async (req, res) => {
   }
 };
 
+const getShop = async (req, res) => {
+  try {
+    const data = await shopModel.getShopById(req.params);
+    const data2 = await shopModel.getProductByShop(req.params);
+    res.render("shopDetail.hbs", {
+      shop: data.recordset[0],
+      products: data2.recordset
+    });
+  } catch (err) {
+    console.log("Error when get shop by id", err.message);
+    res.json("Error when get shop by id ", err.message);
+  }
+}
+
 module.exports = {
   shopInterface,
   openShop,
+  getShop
 };

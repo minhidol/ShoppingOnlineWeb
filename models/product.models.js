@@ -41,8 +41,22 @@ const searchProduct = async (body) => {
   }
 }
 
+const deleteProduct = async (body) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("id", sql.Int, body.id)
+      .execute("sp_DeleteProduct");
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getProductById,
   getAllProducts,
-  searchProduct
+  searchProduct,
+  deleteProduct
 };

@@ -16,6 +16,32 @@ const ownShop = async (accountID) => {
   }
 };
 
+const getShopById = async(body) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("shopid", sql.Int, body.shopid)
+      .execute("sp_getShopById");
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+const getProductByShop = async(body) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("shopid", sql.Int, body.shopid)
+      .execute("sp_getProductByShop");
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 const openShop = async (
   accountID,
   shopName,
@@ -42,4 +68,6 @@ const openShop = async (
 module.exports = {
   ownShop,
   openShop,
+  getShopById,
+  getProductByShop
 };

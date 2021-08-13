@@ -19,7 +19,8 @@ const getProductById = async (req, res) => {
     res.render("productDetail.hbs", {
       product: data.recordset[0],
       stockqty: data.recordset[0].StockQty,
-      rating: rating,
+      image: data.recordset[0].ProductImage,
+      rating: rating
     });
   } catch (err) {
     console.log("Error when get product by id", err.message);
@@ -48,9 +49,20 @@ const searchProducts = async (req, res) => {
   }
 }
 
+const delProduct = async (req, res) => {
+  try {
+    const data = await product.deleteProduct(req.params);
+    res.json(data);
+  }
+  catch(err) {
+    console.log('error', err)
+  }
+}
+
 module.exports = {
   getProductType,
   getProductById,
   getAllProducts,
-  searchProducts
+  searchProducts,
+  delProduct
 };
