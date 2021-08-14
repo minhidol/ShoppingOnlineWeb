@@ -23,16 +23,29 @@
 // module.exports = config
 
 // Nam
+// const config = {
+//   user: "sa",
+//   password: "Password123@jkl#",
+//   server: "localhost",
+//   database: "ShoppingOnlineWeb",
+//   options: {
+//     encrypt: true,
+//     trustServerCertificate: true,
+//   },
+//   port: 1433,
+// };
+
 const config = {
-  user: "sa",
-  password: "Password123@jkl#",
-  server: "localhost",
+  user: "han181",
+  password: "123456",
+  server: "LAPTOP-IQKFBUD7\\HAN181",
   database: "ShoppingOnlineWeb",
   options: {
     encrypt: true,
     trustServerCertificate: true,
   },
-  port: 1433,
+  port: 1434,
 };
+
 
 module.exports = config;

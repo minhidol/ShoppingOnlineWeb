@@ -269,24 +269,72 @@ body{
 .details .recentOrders table thead tr td:last-child,
 .details .recentOrders table tbody tr td:last-child{
     text-align: center;
+    padding-right: 30px;
 }
 
-.details .recentOrders table thead tr td:nth-child(1),
+.details .recentOrders table thead tr td:nth-child(1){
+    text-align: justify;
+    padding-left: 25%;
+}
 .details .recentOrders table tbody tr td:nth-child(1){
-    text-align: center;
-    padding-left: 0px;
+    text-align: justify;
+    padding-right: 0;
+    padding-left: 10%;
+    width: fit-content;
 }
 
 .details .recentOrders table thead tr td:nth-child(2),
 .details .recentOrders table tbody tr td:nth-child(2){
     text-align: center;
-    padding-left: 60px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .details .recentOrders table thead tr td:nth-child(3),
 .details .recentOrders table tbody tr td:nth-child(3){
     text-align: center;
-    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.details .topShop table tr{
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.details .topShop table tbody tr:last-child{
+    border-bottom: none;
+}
+
+.details .topShop table tbody tr:hover{
+    background: #03a9f4;
+    color: white;
+}
+
+.details .topShop table tbody td{
+    padding: 9px 5px;
+}
+
+.details .topShop table thead tr td:last-child,
+.details .topShop table tbody tr td:last-child{
+    text-align: center;
+    padding-right: 30px;
+}
+
+.details .topShop table thead tr td:nth-child(1){
+    text-align: justify;
+    padding-left: 12%;
+}
+
+.details .topShop table tbody tr td:nth-child(1){
+    text-align: justify;
+    padding-right: 0;
+    padding-left: 10%;
+}
+
+.details .topShop table thead tr td:nth-child(2),
+.details .topShop table tbody tr td:nth-child(2){
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 10px;
 }
 
 .rating {
