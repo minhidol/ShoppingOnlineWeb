@@ -71,7 +71,7 @@
                                     <p>Account information</p>
                                 </div>
                             </button></li>
-                        <li><button class="btn">
+                        <li id="openOrderBtn"><button class="btn">
                                 <div class="menu-item">
                                     <i class="fas fa-file-invoice"></i>
                                     <p>Order history</p>
@@ -171,7 +171,7 @@
         var openShopBtn = document.querySelector("#openShopBtn"); 
         openShopBtn.addEventListener('click', function(){
             $.ajax({
-                url: location.href +  'openShop', 
+                url: location.href +  '/openShop', 
                 async: false,
                 success: function (data) {
                     $('#order-content-wrapper').html(data); 
@@ -183,7 +183,19 @@
         var openRatingBtn = document.querySelector("#openRatingBtn"); 
         openRatingBtn.addEventListener('click', function(){
             $.ajax({
-                url: location.href +  'openRating', 
+                url: location.href +  '/openRating', 
+                async: false,
+                success: function (data) {
+                    $('#order-content-wrapper').html(data); 
+                    // console.log(data);
+                }
+            })
+        })
+
+        var openOrderBtn = document.querySelector("#openOrderBtn"); 
+        openOrderBtn.addEventListener('click', function(){
+            $.ajax({
+                url: location.href +  '/openOrder', 
                 async: false,
                 success: function (data) {
                     $('#order-content-wrapper').html(data); 
