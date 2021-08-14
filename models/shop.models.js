@@ -39,7 +39,20 @@ const openShop = async (
   }
 };
 
+const showInvoiceStatus = async (accountID) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("customerAccountID", accountID)
+      .execute("CheckInvoiceStatus");
+
+    return result.recordset;
+  } catch (error) {}
+};
+
 module.exports = {
   ownShop,
   openShop,
+  showInvoiceStatus,
 };

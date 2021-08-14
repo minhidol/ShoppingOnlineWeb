@@ -53,9 +53,21 @@ const RateProduct = async (accountID, productID, starRate, comment) => {
   }
 };
 
+const showRating = async () => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool.request().query("SELECT * FROM Rating");
+
+    return result.recordset;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getRating,
   getInvoiceID,
   showInvoiceDetail,
   RateProduct,
+  showRating,
 };
