@@ -11,4 +11,6 @@ router.post("/:id/openShop", shopControllers.openShop);
 router.get("/:id/openRating", shopControllers.ratingInterface);
 router.post("/:id/openRating", shopControllers.RateProduct);
 
+router.get("/:id/openOrder", shopControllers.showInvoiceStatus);
+
 module.exports = router;

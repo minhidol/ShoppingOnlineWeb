@@ -6,8 +6,8 @@ const shopInterface = async (req, res) => {
     // check weather the user has their shop already
     let data = await shopModel.ownShop(req.params.id);
     let html = "";
+    // if not, send html interface for opening shop
     if (data[0].ShopID == null) {
-      // if not, send html interface for opening shop
       html += '<div class="bg-light mb-3 p-4">';
       html += `<form action=http://localhost:3000/profile/${data[0].AccountID}/openShop method='POST'>`;
       html += '<div class="form-group">';
@@ -149,6 +149,52 @@ const getShop = async (req, res) => {
     res.json("Error when get shop by id ", err.message);
   }
 }
+
+const showInvoiceStatus = async (req, res) => {
+  try {
+    const accountID = req.params.id;
+    // let invoiceID = await ratingModel.getInvoiceID(accountID);
+    let invoiceStatus = await shopModel.showInvoiceStatus(accountID);
+
+    html = "<h5>This is your order:</h5>";
+
+    await Promise.all(
+      invoiceStatus.map(async (i) => {
+        let result = await ratingModel.showInvoiceDetail(i["InvoiceID"]);
+        await Promise.all(
+          result.map(async (item) => {
+            html += `<div class="bg-light mb-3 p-4">`;
+            html += `<div class="d-flex flex-row" style="justify-content: space-between;">`;
+            html += `<h6 class="text-secondary">${i["CreatedDate"]}</h6>`;
+            html += `<h6 class="text-primary mt-1">${i["OrderStatusName"]}</h6>`;
+            html += `</div>`;
+            html += `<div class="invoice-wrapper d-flex flex-column">`;
+            html += `<div class="my-3">`;
+            html += `<div class="order-content d-flex flex-row border-top p-2">`;
+            html += `<div class="order-info">`;
+            html += `<img src="/images/image.png" width="10%">`;
+            html += `<div class="ml-3 mt-3">`;
+            html += `<h5 class="text-left">${item.ProductName}</h5>`;
+            html += `<p>x${item.Qty}</p>`;
+            html += `</div>`;
+            html += `</div>`;
+            html += `<p><small>$</small>${item.Price}</p>`;
+            html += `</div>`;
+            html += `</div>`;
+            html += `<h4 class="text-right">Total:`;
+            html += `<span class="text-danger"><small>$</small>${item.Subtotal}</span>`;
+            html += `</h4>`;
+
+            html += `</div>`;
+            html += `</div>`;
+          })
+        );
+      })
+    );
+
+    res.send(html);
+  } catch (error) {}
+};
 
 module.exports = {
   shopInterface,
