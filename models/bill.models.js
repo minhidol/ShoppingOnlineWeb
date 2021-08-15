@@ -62,6 +62,7 @@ const getBillByAccount = async (acc) => {
   }
 };
 
+<<<<<<< HEAD
 const accountForCart = async (accID) => {
   try {
     let pool = await sql.connect(config);
@@ -85,6 +86,10 @@ const getInfoShop = async(shopName) => {
     throw error
   }
 }
+=======
+const addProductToCart = async(body) => {
+    try {
+>>>>>>> 955427c7db541186ca89612f199cc7d2b899ea7c
 
 const getVoucher = async() => {
   try {
