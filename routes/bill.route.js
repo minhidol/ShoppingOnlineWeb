@@ -3,14 +3,20 @@ const express = require('express')
 const router = express.Router()
 const billController = require('../controllers/bill.controllers')
 
-router.get('/testForAddProductToCard', billController.showProduct)
 // cart product
-router.post('/addProductToCart', billController.addProductToCart)
 
+router.get('/testForAddProductToCard', billController.showProduct)
+router.post('/addProductToCart', billController.addProductToCart)
+router.post('/updateCart', billController.updateCart)
 
 // bill
-router.route('/getBill')
-    .get(billController.showBill)
+router.route('/getBill/:accID')
+    .get(billController.showCart)
+router.post('/createBill', billController.createBill)
+router.get('/showBill', billController.showBill)
+
+// shop
+router.post('/shopOfBill', billController.getShopInfo)
 
 
 module.exports = router

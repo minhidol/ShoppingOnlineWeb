@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title> 
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../stylesheets/bill.css">
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12">
+           <div class="invoice">
+              <!-- begin invoice-company -->
+              <div class="invoice-company text-inverse f-w-600">
+                 <span class="pull-right hidden-print">
+                 </span>
+                 <strong style="font-size: 30px;">
+                     Hóa Đơn
+                 </strong>
+              </div>
+              <!-- end invoice-company -->
+              <!-- begin invoice-header -->
+              <div class="invoice-header">
+                 <div class="invoice-from">
+                    <small>from</small>
+                    <address class="m-t-5 m-b-5" id = 'addressFrom'>
+                       <strong class="text-inverse">Twitter, Inc.</strong><br>
+                       Street Address<br>
+                       City, Zip Code<br>
+                       Phone: (123) 456-7890<br>
+                       Fax: (123) 456-7890
+                    </address>
+                 </div>
+                 <div class="invoice-to">
+                    <small>to</small>
+                    <address class="m-t-5 m-b-5" id = 'addressTo'>
+                       <strong class="text-inverse">Company Name</strong><br>
+                       Street Address<br>
+                       City, Zip Code<br>
+                       Phone: (123) 456-7890<br>
+                       Fax: (123) 456-7890
+                    </address>
+                 </div>
+                 <div class="invoice-date">
+                    <small>Invoice / July period</small>
+                    <div class="date text-inverse m-t-5">August 3,2012</div>
+                    <div class="invoice-detail">
+                       #0000123DSS<br>
+                       Services Product
+                    </div>
+                 </div>
+              </div>
+              <!-- end invoice-header -->
+              <!-- begin invoice-content -->
+              <div class="invoice-content">
+                 <!-- begin table-responsive -->
+                 <div class="table-responsive">
+                    <table class="table table-invoice">
+                       <thead>
+                          <tr>
+                             <th>Tên sản phẩm</th>
+                             <th class="text-center" width="10%">Số lượng</th>
+                             <th class="text-center" width="10%">Đơn giá</th>
+                             <th class="text-center" width="10%">Giá bán</th>
+                             <th class="text-right" width="20%">Giá giảm</th>
+                             <th class="text-right" width="20%">Thành tiền</th>
+                          </tr>
+                       </thead>
+                       <tbody id = 'listProductForBill'>
+                         
+                       </tbody>
+                    </table>
+                 </div>
+                 <!-- end table-responsive -->
+                 <!-- begin invoice-price -->
+                 <div class="invoice-price">
+                    <div class="invoice-price-left">
+                          <select class="form-control form-control-lg" id='select_voucher'>
+                             <option>Chọn mã khuyến mãi</option>
+                             {{#each vouchers}}
+                                 <option>
+                                    <span>
+                                       {{PromotionProgName}} -
+                                    </span>
+                                    <span>Giảm giá</span>
+                                    <span>{{VoucherValue}}</span>
+                                    <span>%</span>
+                                 </option>
+                             {{/each}}
+                        </select>
+                     </div>
+                      <div class="invoice-price-left">
+                          <button onclick="getPromotion()" style="background-color: #2d353c; color: #fff; padding:15px">
+                             Áp dụng
+                          </button>
+                     </div>
+                  </div>
+                 </div>
+                 
+                 <div class="invoice-price">
+                    <div class="invoice-price-left">
+                       <div class="invoice-price-row">
+                          <div class="sub-price">
+                             <small>SUBTOTAL</small>
+                             <span class="text-inverse" id = 'totalPrice'>$4,500.00</span>
+                          </div>
+                          <div class="sub-price">
+                             <i class="fa fa-plus text-muted"></i>
+                          </div>
+                          <div class="sub-price">
+                             <small>PAYPAL FEE </small>
+                             <span class="text-inverse" id="fee">1500</span>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="invoice-price-right">
+                       <small>TOTAL</small> <span class="f-w-600" id = 'total-final'>$4508.00</span>
+                    </div>
+
+                 </div>
+                 <!-- end invoice-price -->
+                 <div class="invoice-price">
+                   <div class="invoice-price-left">
+                          <select class="form-control form-control-lg" id='select_payment'>
+                             <option>Chọn phương thức thanh toán</option>
+                             <option>Credit Card</option>
+                             <option>Cash</option>
+                        </select>
+                     </div>
+                 </div>
+
+                 <div class="invoice-price-right">
+                       <button id='create-bill' class="btn btn-danger" style="padding: 15px; margin-left:45%; margin-top:20px">Gửi hóa đơn</button>
+                  </div>
+              </div>
+              <!-- end invoice-content -->
+              <!-- begin invoice-note -->
+              <div class="invoice-note">
+                 * Make all cheques payable to [Your Company Name]<br>
+                 * Payment is due within 30 days<br>
+                 * If you have any questions concerning this invoice, contact  [Name, Phone Number, Email]
+              </div>
+              <!-- end invoice-note -->
+              <!-- begin invoice-footer -->
+              <div class="invoice-footer">
+                 <p class="text-center m-b-5 f-w-600">
+                    THANK YOU FOR YOUR BUSINESS
+                 </p>
+                 <p class="text-center">
+                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> matiasgallipoli.com</span>
+                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:016-18192302</span>
+                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> rtiemps@gmail.com</span>
+                 </p>
+              </div>
+              <!-- end invoice-footer -->
+           </div>
+        </div>
+     </div>
+</body>
+<script>
+   var promotionHbs = {{{vouchersJS}}}
+   localStorage.setItem('vouchers', JSON.stringify(promotionHbs))
+   var shop = JSON.parse(localStorage.getItem('shop'))
+   var acc = JSON.parse(localStorage.getItem('account'))
+   var listProduct = JSON.parse(localStorage.getItem('bill'))
+   var stringFrom = '<strong class="text-inverse">Shop</strong><br>'
+                     + shop[0].ShopName + '<br>'
+                     + shop[0].PickupAddress+'<br>'
+                     + 'Phone: (123) 456-7890<br>'
+                     + 'Fax: (123) 456-7890'
+   var from = document.getElementById('addressFrom')
+   from.innerHTML = stringFrom
+   var to = document.getElementById('addressTo')
+   var stringTo = '<strong class="text-inverse">Customer</strong><br>'
+                     + acc[0].FullName + '<br>'
+                     + acc[0].Address+'<br>'
+                     + 'Phone: (123) 456-7890<br>'
+                     + 'Fax: (123) 456-7890'
+   to.innerHTML = stringTo
+   var string_list = ''
+   var listProductHTML = document.getElementById('listProductForBill')
+   var sum = 0
+   for(var i = 0; i < listProduct.listProduct.length; i++){
+      const temp = listProduct.listProduct[i]
+      string_list    +=   '<tr>'
+                     +     '<td>'
+                     +         '<span class="text-inverse">'+temp.ProductName+'</span><br>'
+                     +     ' </td>'
+                     +        '<td class="text-center" style="text-align: center">'+temp.Qty+'</td>'
+                     +       ' <td class="text-right" style="text-align: center">'+temp.ProductPrice+'</td>'
+                     +        '<td class="text-right" style="text-align: center">'+temp.Subtotal+'</td>'
+                     +       ' <td class="text-right" style="text-align: center">'+0+'</td>'
+                     +       ' <td class="text-right" style="text-align: center">'+temp.Subtotal+'</td>'
+                     +    ' </tr>'
+      sum += temp.Subtotal;
+   }
+   listProductHTML.innerHTML = string_list
+   var totalPrice = document.getElementById('totalPrice')
+   totalPrice.innerHTML = sum
+   var fee = document.getElementById('fee').innerHTML
+   var totalFinal = document.getElementById('total-final')
+   totalFinal.innerHTML = parseFloat(fee) + parseFloat(sum)
+   async function postProduct(url, body){
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    })
+    return response.json()
+   }
+   function getPromotion(){
+      var promotion = document.getElementById('select_voucher')
+      var totalPrice = document.getElementById('totalPrice')
+      var reduce = sum*0.1;
+      totalPrice.innerHTML = sum + '   -   (' + reduce + ' - giảm 10%)'
+      var totalFinal = document.getElementById('total-final')
+      const sumFinal = parseFloat(sum) - parseFloat(reduce) + parseFloat(fee)
+      totalFinal.innerHTML = sumFinal
+   }
+
+   var postBill = document.getElementById('create-bill')
+   
+   postBill.onclick = async function(){
+
+      var promotion = document.getElementById('select_voucher')
+      var namePromotion = promotion.value.split(" ")[0]
+      var listVouchers = JSON.parse(localStorage.getItem('vouchers'))
+      var total = document.getElementById('total-final').innerHTML
+      var voucher = ''
+      for(var i = 0; i < listVouchers.length; i++){
+         if(listVouchers[i].PromotionProgName == namePromotion){
+            voucher = listVouchers[i]
+         }
+      }
+      const body = {
+         'customer': acc[0].AccountID,
+         'totalAmount' : listProduct.listProduct.length,
+         'paymentMethod': 1,
+         'shipFee': 1500,
+         'voucher': voucher,
+         'shopID': shop[0].ShopID,
+         'total': total,
+         'listProduct': listProduct.listProduct
+      }
+      const result = await postProduct('http://localhost:3000/bill/createBill', body)
+      if(result.ErrorCode == 0){
+         alert('Đơn hàng đã được gửi')
+         window.location.href = "http://localhost:3000/bill/getBill/1";
+      }
+   }
+</script>
+</html>
