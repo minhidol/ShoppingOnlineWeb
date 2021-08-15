@@ -34,18 +34,18 @@ const addProductToCart = async (body) => {
 const updateCart = async (body) => {
   try {
     let pool = await sql.connect(config);
-    console.log(body)
+    console.log(body);
     let result = await pool
-        .request()
-        .input('CustomerID', sql.Int, body.CustomerAccountID)
-        .input('ProductID', sql.Int, body.ProductID)
-        .input('Qty', sql.Int, body.Qty)
-        .input('Subtotal', sql.Money, body.Subtotal)
-        .execute("UpdateCart");
-    return result.rowsAffected
+      .request()
+      .input("CustomerID", sql.Int, body.CustomerAccountID)
+      .input("ProductID", sql.Int, body.ProductID)
+      .input("Qty", sql.Int, body.Qty)
+      .input("Subtotal", sql.Money, body.Subtotal)
+      .execute("UpdateCart");
+    return result.rowsAffected;
   } catch (error) {
-      //console.log(error)
-      throw error
+    //console.log(error)
+    throw error;
   }
 };
 
@@ -62,7 +62,6 @@ const getBillByAccount = async (acc) => {
   }
 };
 
-<<<<<<< HEAD
 const accountForCart = async (accID) => {
   try {
     let pool = await sql.connect(config);
@@ -75,93 +74,90 @@ const accountForCart = async (accID) => {
   }
 };
 
-const getInfoShop = async(shopName) => {
+const getInfoShop = async (shopName) => {
   try {
-    let pool = await sql.connect(config)
+    let pool = await sql.connect(config);
     let result = await pool
       .request()
-      .query(`select * from Shop where ShopID = ${shopName}`)
-    return result.recordset
+      .query(`select * from Shop where ShopID = ${shopName}`);
+    return result.recordset;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
-=======
-const addProductToCart = async(body) => {
-    try {
->>>>>>> 955427c7db541186ca89612f199cc7d2b899ea7c
+};
 
-const getVoucher = async() => {
+const getVoucher = async () => {
   try {
-    let pool= await sql.connect(config)
+    let pool = await sql.connect(config);
     let result = await pool
       .request()
-      .query('select TOP 10 * from Vouchers V join PromotionProg P on (V.PromotionProgID = P.PromotionProgID) order by VoucherValue ASC ')
-      return result.recordsets
-    } catch (error) {
-    throw error
+      .query(
+        "select TOP 10 * from Vouchers V join PromotionProg P on (V.PromotionProgID = P.PromotionProgID) order by VoucherValue ASC "
+      );
+    return result.recordsets;
+  } catch (error) {
+    throw error;
   }
-}
+};
 
-const createBill = async(body) => {
+const createBill = async (body) => {
   try {
-    console.log(body)
-    let pool= await sql.connect(config)
+    console.log(body);
+    let pool = await sql.connect(config);
     let result = await pool
-        .request()
-        .input('createdDate', sql.Date, new Date())
-        .input('total', sql.Money, 0)
-        .input('invoiceStatus', sql.Int, 3)
-        .input('payment', sql.Int, body.paymentMethod)
-        .input('customer', sql.Int, body.customer)
-        .input('voucher', sql.Int, body.voucher.VoucherID)
-        .input('ship', sql.Money, body.shipFee)
-        .input('shop', sql.Int, body.shopID)
-        .input('promotionID', sql.Int, body.voucher.PromotionProgID[0])
-        .execute('createBill')
+      .request()
+      .input("createdDate", sql.Date, new Date())
+      .input("total", sql.Money, 0)
+      .input("invoiceStatus", sql.Int, 3)
+      .input("payment", sql.Int, body.paymentMethod)
+      .input("customer", sql.Int, body.customer)
+      .input("voucher", sql.Int, body.voucher.VoucherID)
+      .input("ship", sql.Money, body.shipFee)
+      .input("shop", sql.Int, body.shopID)
+      .input("promotionID", sql.Int, body.voucher.PromotionProgID[0])
+      .execute("createBill");
     let idBill = await pool
       .request()
-      .query(`select max(InvoiceID) as ID from Invoices`)
-    const id = idBill.recordsets[0][0].ID
-    console.log('-------------------------------------------')
-    console.log(id)
-    for(var i = 0; i < body.listProduct.length; i++){
-      console.log(body.listProduct[i].ProductPrice)
-      console.log(body.listProduct[i].Qty)
-      console.log(body.listProduct[i].Subtotal)
+      .query(`select max(InvoiceID) as ID from Invoices`);
+    const id = idBill.recordsets[0][0].ID;
+    console.log("-------------------------------------------");
+    console.log(id);
+    for (var i = 0; i < body.listProduct.length; i++) {
+      console.log(body.listProduct[i].ProductPrice);
+      console.log(body.listProduct[i].Qty);
+      console.log(body.listProduct[i].Subtotal);
       let details = await pool
         .request()
-        .input('id', sql.Int, id)
-        .input('productID', sql.Int, body.listProduct[i].ProductID)
-        .input('quantity', sql.Int, body.listProduct[i].Qty)
-        .input('price', sql.Money, body.listProduct[i].ProductPrice)
-        .input('reduced', sql.Money, 0)
-        .input('sub', sql.Money, body.listProduct[i].Subtotal)
-        .input('acc', sql.Int, body.customer)
-        .execute('addProductToInvoices')
+        .input("id", sql.Int, id)
+        .input("productID", sql.Int, body.listProduct[i].ProductID)
+        .input("quantity", sql.Int, body.listProduct[i].Qty)
+        .input("price", sql.Money, body.listProduct[i].ProductPrice)
+        .input("reduced", sql.Money, 0)
+        .input("sub", sql.Money, body.listProduct[i].Subtotal)
+        .input("acc", sql.Int, body.customer)
+        .execute("addProductToInvoices");
     }
-    console.log(result)
+    console.log(result);
 
-    return result.rowsAffected
+    return result.rowsAffected;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
-const getBillForAccount = async(query) => {
+const getBillForAccount = async (query) => {
   try {
-    let pool= await sql.connect(config)
-    let result = await pool
-        .request()
-        .query(`select I.InvoiceID, I.ShopID, O.OrderStatusName, I.InvoiceStatus
+    let pool = await sql.connect(config);
+    let result = await pool.request()
+      .query(`select I.InvoiceID, I.ShopID, O.OrderStatusName, I.InvoiceStatus
                 from Invoices as I join OrderStatus as O
                 on I.InvoiceStatus = O.OrderStatusID
-                where CustomerAccountID = 1`)
-    return result.recordset
+                where CustomerAccountID = 1`);
+    return result.recordset;
   } catch (error) {
-    throw error
+    throw error;
   }
-}
+};
 
 module.exports = {
   getProductForTestCart,
@@ -172,5 +168,5 @@ module.exports = {
   getInfoShop,
   getVoucher,
   createBill,
-  getBillForAccount
+  getBillForAccount,
 };

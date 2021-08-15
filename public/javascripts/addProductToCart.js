@@ -10,23 +10,29 @@ async function postProduct(url, body) {
 }
 
 async function addProductToCart(e) {
-  var parent = e.path[1].childNodes;
-  var body = {
-    account: 1,
-    productID: parent[1].innerHTML,
-    quantity: 1,
-    price: parent[5].innerHTML,
-  };
-  const result = await postProduct(
-    "http://localhost:3000/bill/addProductToCart",
-    body
-  );
-  console.log(result);
-  if (result.ErrorCode == 0) {
-    alert("Thêm thành công!");
-  } else {
-    alert("Sản phầm đã được thêm vào giỏ hàng!");
-  }
+  e.preventDefault();
+  console.log("event");
+  var event = e.path[2].childNodes[5];
+  console.log(event)
+  var price = event.childNodes[1].innerHTML.split(" ")[0]
+  var productID = event.childNodes[3].innerHTML
+    var parent = e.path[1].childNodes;
+    var body = {
+      account: 1,
+      productID: productID,
+      quantity: 1,
+      price: price,
+    };
+    const result = await postProduct(
+      "http://localhost:3000/bill/addProductToCart",
+      body
+    );
+    console.log(result);
+    if (result.ErrorCode == 0) {
+      alert("Thêm thành công!");
+    } else {
+      alert("Sản phầm đã được thêm vào giỏ hàng!");
+    }
 }
 
 function addCountForProduct(x) {
