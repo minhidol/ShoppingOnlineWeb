@@ -54,9 +54,52 @@ const deleteProduct = async (body) => {
   }
 }
 
+const insertProduct = async (body) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("tensp", sql.Char, body.productName)
+      .input("type", sql.Int, body.typeid)
+      .input("des", sql.Char, body.description)
+      .input("price", sql.Money, body.price)
+      .input("stock", sql.Int, body.stockqty)
+      .input("datepos", sql.Date, body.datePost)
+      .input("img", sql.Char, body.imgurl)
+      .input("shopid", sql.Char, body.shopid)
+      .execute("sp_InsertProduct");
+    console.log(result)
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
+const updateProduct = async (body) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool
+      .request()
+      .input("tensp", sql.Char, body.productName)
+      .input("type", sql.Int, body.typeid)
+      .input("des", sql.Char, body.description)
+      .input("price", sql.Money, body.price)
+      .input("stock", sql.Int, body.stockqty)
+      .input("datepos", sql.Date, body.datePost)
+      .input("img", sql.Char, body.imgurl)
+      .execute("sp_InsertProduct");
+    console.log(result)
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getProductById,
   getAllProducts,
   searchProduct,
-  deleteProduct
+  deleteProduct,
+  insertProduct,
+  updateProduct
 };

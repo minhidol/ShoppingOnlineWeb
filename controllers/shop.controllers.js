@@ -196,10 +196,40 @@ const showInvoiceStatus = async (req, res) => {
   } catch (error) {}
 };
 
+const insProduct = async(req, res) => {
+  try {
+    const data = await req.params['shopid']
+    const data2 = await shopModel.getShopById(req.params);
+    res.render("shopInsertProduct.hbs", {
+      shopid: data,
+      shop: data2.recordset[0]
+    });
+  } catch (err) {
+    console.log("Error when insert", err.message);
+    res.json("Error when insert ", err.message);
+  }
+}
+
+const updProduct = async(req, res) => {
+  try {
+    const data = await req.params['shopid']
+    const data2 = await shopModel.getShopById(req.params);
+    res.render("shopUpdateProduct.hbs", {
+      shopid: data,
+      shop: data2.recordset[0]
+    });
+  } catch (err) {
+    console.log("Error when update", err.message);
+    res.json("Error when update ", err.message);
+  }
+}
+
 module.exports = {
   shopInterface,
   openShop,
   ratingInterface,
   RateProduct,
-  getShop
+  getShop,
+  showInvoiceStatus,
+  insProduct
 };

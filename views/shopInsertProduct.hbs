@@ -18,7 +18,7 @@
     <!-- font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
         integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
     <title>Document</title>
 </head>
 
@@ -26,7 +26,7 @@
 
     <nav class="menubar bg-dark">
         <a href="/home/page/1" class="logo">
-            <img src="../images/logo.png" alt="">
+            <img src="/images/logo.png" alt="">
         </a>
         <ul class="links list-unstyled m-0">
             <li class="nav-item">
@@ -48,58 +48,44 @@
     <main>
         {{#with shop}}
         <section id="shop-header" class="bg-light d-flex flex-row">
-            <img src="../images/avatar.png" alt="" class="shop-avatar">
+            <img src="/images/avatar.png" alt="" class="shop-avatar">
             <h6>Shop name: <small>{{ShopName}}</small></h6>
             <h6>Pickup address: <small>{{PickupAddress}}</small></h6>
         </section>
         {{/with}}
-        <section id="banner">
-            <!-- <div class="owl-carousel owl-theme" style="padding: 30px 50px 30px 50px;">
-                <div class="item" style="width: 100%;">
-                  <img src="../img/banner.png" alt="Banner1">
-                </div>
-                <div class="item" style="width: 100%;">
-                  <img src="../img/banner.png" alt="Banner2">
-                </div>
-                <div class="item" style="width: 100%;">
-                  <img src="../img/banner.png" alt="Banner3">
-                </div>
-            </div> -->
-            <div class="item" style="width: 70%; margin: auto;">
-                <img src="../images/banner.png" alt="Banner3">
-            </div>
-        </section>
         <section id="new-items" class="mt-5">
             <div class="row">
-                <h2 class="col-8">Danh sách sản phẩm</h2>
-                {{#with shop}}
-                <button class="btn btn-success col-4" id={{ShopID}} onclick="toAdd()">Add Product</button>
-                {{/with}}
+                <h2 class="col-8">Add Product</h2>
             </div>
             <hr>
-            <div class="row my-3 mx-3" style="padding: 30px 50px 30px 50px;">
-                {{#each products}}
-                <div class="col-3">
-                    <div class="card" style="height:750px; margin-top:12px">
-                        <img src={{ProductImage}} alt="" height="270px" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title" style="height: 100px;">{{ProductName}}</h4>
-                            <div class="card-text" style="height: 200px;">
-                                <p class="text-uppercase" style="color: black; max-height: 150px; overflow-y:auto">
-                                    {{Description}}</p>
-                                <p class="price">Stock: {{StockQty}}</p>
-                            </div>
-                            <div class="card-text" style="height: 50px;">                        
-                                <p class="price">{{ProductPrice}} USD</p>
-                            </div>
-                            <div class="card-footer">
-                                <button href="" class="btn btn-primary col-4">Edit</button>
-                                <button id={{ProductID}} class="btn btn-danger col-6" onclick="del()">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{/each}}
+            <div class="row" style="margin-bottom: 8px; margin-left:8px">
+                <label>Name Product:</label>
+                <input type="text" id="product" />
+            </div>
+            <div class="row" style="margin-bottom: 8px; margin-left:8px">
+                <label>Type Product:</label>
+                <input type="number" id="type" />
+            </div>
+            <div class="row" style="margin-bottom: 8px; margin-left:8px">
+                <label>Description:</label>
+                <input type="text" id="des" />
+            </div>
+            <div class="row" style="margin-bottom: 8px; margin-left:8px">
+                <label>Price:</label>
+                <input type="number" id="price" />
+            </div>
+            <div class="row" style="margin-bottom: 8px; margin-left:8px">
+                <label>Stock:</label>
+                <input type="number" id="stock" />
+            </div>
+            <div class="row" style="margin-bottom: 8px; margin-left:8px">
+                <label>Image:</label>
+                <input type="file" id="img" />
+            </div>
+            <div class="row" style="margin-bottom: 8px; margin-left:8px">
+                {{#with shop}}
+                <button id={{ShopID}} class="btn btn-primary" onclick="add()">Add</button>
+                {{/with}}
             </div>
         </section>
     </main>
@@ -171,15 +157,36 @@
 
     <!-- Custom Javascript -->
     <script>
-        del = async () => {
-            await fetch('http://localhost:3000/product/delete/' + this.event.target.id, {
-                method: 'GET'
+        add = async () => {
+            var shopid = this.event.target.id
+            var name = document.getElementById('product').value
+            var type = document.getElementById('type').value
+            var des = document.getElementById('des').value
+            var price = document.getElementById('price').value
+            var stock = document.getElementById('stock').value
+            var img = document.getElementById('img').value
+            console.log(type, des, price, stock, img)
+            var temp = img.lastIndexOf('\\')
+            img = img.slice(temp + 1)
+            urlimg = '/images/Books/' + img;
+            var body = {
+                productName: name,
+                typeid: type,
+                description: des,
+                price: price,
+                stockqty: stock,
+                datePost: new Date(),
+                imgurl: urlimg,
+                shopid: shopid
+            }
+            await fetch('http://localhost:3000/product/insert/49', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
             }).then(response => console.log(response))
-            window.location.reload()
-        }
-        toAdd = () => {
-            var id = this.event.target.id
-            window.location.href = '/shop/insert/' + id
+            window.location.href = '/shop/' + shopid
         }
     </script>
 </body>

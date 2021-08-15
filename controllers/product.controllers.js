@@ -59,10 +59,21 @@ const delProduct = async (req, res) => {
   }
 }
 
+const insProduct = async (req, res) => {
+  try {
+    const data = await product.insertProduct(req.body)
+    res.json(data)
+  }
+  catch(err) {
+    console.log('error', err)
+  }
+}
+
 module.exports = {
   getProductType,
   getProductById,
   getAllProducts,
   searchProducts,
-  delProduct
+  delProduct,
+  insProduct
 };

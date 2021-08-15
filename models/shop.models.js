@@ -81,6 +81,6 @@ module.exports = {
   ownShop,
   openShop,
   getShopById,
-  getProductByShop
+  getProductByShop,
   showInvoiceStatus,
 };
