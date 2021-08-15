@@ -7,11 +7,15 @@ const profileRoutes = require("./profile.route");
 const shopRoutes = require("./shop.route")
 const ratingRoutes = require("./rating.route");
 
+const sysRoutes = require("./sys.route")
+
 router.use("/product", productRoutes);
 router.use("/bill", billRoutes);
 router.use("/profile", profileRoutes);
 router.use("/home", productRoutes);
 router.use("/rating", ratingRoutes);
 router.use("/shop", shopRoutes)
+
+router.use("/dashboard", sysRoutes)
 
 module.exports = router;

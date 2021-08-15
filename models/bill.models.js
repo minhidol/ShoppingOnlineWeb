@@ -12,7 +12,6 @@ const getProductForTestCart = async () => {
     }
 }
 
-
 const addProductToCart = async(body) => {
     try {
 
