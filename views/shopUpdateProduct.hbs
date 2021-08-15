@@ -22,7 +22,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body id="body" class={{productid}}>
 
     <nav class="menubar bg-dark">
         <a href="/home/page/1" class="logo">
@@ -53,38 +53,36 @@
             <h6>Pickup address: <small>{{PickupAddress}}</small></h6>
         </section>
         {{/with}}
+        {{#with product}}
         <section id="new-items" class="mt-5">
             <div class="row">
-                <h2 class="col-8">Add Product</h2>
+                <h2 class="col-8">Edit Product</h2>
             </div>
             <hr>
             <div class="row" style="margin-bottom: 8px; margin-left:8px">
                 <label>Name Product:</label>
-                <input type="text" id="product" />
-            </div>
-            <div class="row" style="margin-bottom: 8px; margin-left:8px">
-                <label>Type Product:</label>
-                <input type="number" id="type" />
+                <input type="text" id="product" value={{ProductName}} />
             </div>
             <div class="row" style="margin-bottom: 8px; margin-left:8px">
                 <label>Description:</label>
-                <input type="text" id="des" />
+                <input type="text" id="des" value={{Description}} />
             </div>
             <div class="row" style="margin-bottom: 8px; margin-left:8px">
                 <label>Price:</label>
-                <input type="number" id="price" />
+                <input type="number" id="price" value={{ProductPrice}} />
             </div>
             <div class="row" style="margin-bottom: 8px; margin-left:8px">
                 <label>Stock:</label>
-                <input type="number" id="stock" />
+                <input type="number" id="stock" value={{StockQty}} />
             </div>
             <div class="row" style="margin-bottom: 8px; margin-left:8px">
                 <label>Image:</label>
                 <input type="file" id="img" />
             </div>
+            {{/with}}
             <div class="row" style="margin-bottom: 8px; margin-left:8px">
                 {{#with shop}}
-                <button id={{ShopID}} class="btn btn-primary" onclick="add()">Add</button>
+                <button id={{ShopID}} class="btn btn-primary" onclick="upd()">Update</button>
                 {{/with}}
             </div>
         </section>
@@ -157,29 +155,29 @@
 
     <!-- Custom Javascript -->
     <script>
-        add = async () => {
+        upd = async () => {
             var shopid = this.event.target.id
+            var productid = this.event.target.name
             var name = document.getElementById('product').value
-            var type = document.getElementById('type').value
             var des = document.getElementById('des').value
             var price = document.getElementById('price').value
             var stock = document.getElementById('stock').value
             var img = document.getElementById('img').value
-            console.log(type, des, price, stock, img)
+            console.log(this.event.target.name, des, price, stock, img)
             var temp = img.lastIndexOf('\\')
             img = img.slice(temp + 1)
             urlimg = '/images/Books/' + img;
+            var proid = document.getElementById('body').classList[0]
             var body = {
                 productName: name,
-                typeid: type,
                 description: des,
                 price: price,
                 stockqty: stock,
-                datePost: new Date(),
                 imgurl: urlimg,
-                shopid: shopid
+                shopid: shopid,
+                productid: proid
             }
-            await fetch('http://localhost:3000/product/insert/' + shopid, {
+            await fetch('http://localhost:3000/product/update/' + shopid + '/' + proid, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -93,7 +93,7 @@
                                 <p class="price">{{ProductPrice}} USD</p>
                             </div>
                             <div class="card-footer">
-                                <button href="" class="btn btn-primary col-4">Edit</button>
+                                <button name={{ShopID}} id={{ProductID}} onclick="toUpd()" class="btn btn-primary col-4">Edit</button>
                                 <button id={{ProductID}} class="btn btn-danger col-6" onclick="del()">Delete</button>
                             </div>
                         </div>
@@ -180,6 +180,11 @@
         toAdd = () => {
             var id = this.event.target.id
             window.location.href = '/shop/insert/' + id
+        }
+        toUpd = () => {
+            var id = this.event.target.id
+            var shopid =  this.event.target.name
+            window.location.href = '/shop/update/' + shopid + '/' + id
         }
     </script>
 </body>

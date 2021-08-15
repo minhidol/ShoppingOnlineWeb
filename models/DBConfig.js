@@ -35,10 +35,11 @@
 //   port: 1433,
 // };
 
-const config = {
+/* const config = {
   user: "han181",
   password: "123456",
   server: "LAPTOP-IQKFBUD7\\HAN181",
+} */
 /* const config = {
   user: "sa",
   password: "Password123@jkl#",
