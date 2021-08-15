@@ -51,13 +51,10 @@
         </form>
         <ul class="button-group list-unstyled m-0">
             <li>
+                <button class="btn btn-success mr-3" id = 'cart-shopping'>Cart</button>
+            </li>
+            <li>
                 <a href="/shop/1" class="btn btn-success mr-3">My Shop</a>
-            </li>
-            <li>
-                <button class="btn btn-success mr-3">Login</button>
-            </li>
-            <li>
-                <button class="btn btn-success">Sign up</button>
             </li>
         </ul>
     </nav>
@@ -83,9 +80,10 @@
                             </div>
                             <div class="card-text" style="height: 50px;">
                                 <p class="price">{{ProductPrice}} USD</p>
+                                <p1 style="display: none;">{{ProductID}}</p1>
                             </div>
                             <div class="card-footer">
-                                <button href="" class="btn btn-primary" id='addProductToCart'
+                                <button  class="btn btn-primary" id='addProductToCart'
                                     onclick="addProductToCart(event)">Thêm sản phẩm</button>
                             </div>
                         </div>
@@ -175,12 +173,16 @@
         integrity="sha256-pTxD+DSzIwmwhOqTFN+DB+nHjO4iAsbgfyFq5K5bcE0=" crossorigin="anonymous"></script>
 
     <!--  isotope plugin cdn  -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js"
-        integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-    <script src="/javascripts/addProductToCart.js"></script>
-    <!-- Custom Javascript -->
-    {{!--
-    <script src="../index.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+    <script src="../../javascripts/addProductToCart.js"></script>
+
+    <script>
+        var ab = document.getElementById('cart-shopping')
+        ab.onclick = function(){
+            window.location.href = 'http://localhost:3000/bill/getBill/1'
+            
+        }
+    </script>
     <script>
         document.getElementById({{{page}}}).classList.add('active')
         if (parseInt({{{page}}}) == 10)

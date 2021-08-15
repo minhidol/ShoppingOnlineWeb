@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha256-kksNxjDRxd/5+jGurZUJd1sdR2v+ClrCl3svESBaJqw=" crossorigin="anonymous" />
 
     <!-- font awesome icons -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="../../stylesheets/style.css">
     <title>Document</title>">
-    <title>Document</title>
 </head>
 <body>
     <nav class="menubar bg-dark">
@@ -38,8 +38,11 @@
             <button class="btn btn-primary">Search</button>
         </form>
         <ul class="button-group list-unstyled m-0">
+             <li>
+                <button class="btn btn-success mr-3" id = 'cart-shopping'>Cart</button>
+            </li>
             <li>
-                <button class="btn btn-success mr-3">Login</button>
+                <button class="btn btn-success mr-3" >Login</button>
             </li>
             <li>
                 <button class="btn btn-success">Sign up</button>
@@ -49,102 +52,103 @@
 
     <main>
         <section id="cart" class="container-fluid">
-            <h2>Shopping cart</h2>
             <div class="row bg-light w-75">
                 <div class="col-9 cart-list">
+                    <h2>Shopping cart</h2>
                     <div class="cart-item">
-
-                        <div class="row border-top pt-2">
-                            <div class="col-2">
-                                <img src="../images/image.png" class="cart-img img-fluid">
-                            </div>
-                            <div class="col-8">
-                                <h4 class="text-capitalize">Tên sản phẩm</h4>
-                                <p class="text-capitalize">By nhà cung cấp</p>
-                                <div class="group-landscape">
-                                    <div class="quantity d-flex flex-row">
-                                        <button class="qty-down" data-id="1">-</button>
-                                        <input type="text" disabled class="quantity-input text-center" maxlength="2" size="6" value="1" style="border: 1px solid rgba(0, 0, 0, 0.125);" />
-                                        <button class="qty-up" data-id="1">+</button>
+                        {{#each cart}}
+                            <div class="row border-top pt-2" style=";">
+                                <h3 style="color: black; padding-right: 20px">Cửa hàng: </h3>
+                                <h2 style="color: red;">{{ShopName}}</h2>
+                                {{#each listProduct}}
+                                    <div>
+                                        <div class="col-2">
+                                            <img src="../../images/image.png" class="cart-img img-fluid">
+                                        </div>
+                                        <div class="col-8">
+                                            <h4 class="text-capitalize">{{ProductName}}</h4>
+                                            <div class="group-landscape">
+                                                <div class="quantity d-flex flex-row">
+                                                    <h2 style="display: none;">{{ProductID}}</h2>
+                                                    <button class="qty-down" data-id="1">-</button>
+                                                    <input type="text" disabled class="quantity-input text-center" maxlength="2" size="6" value={{Qty}} style="border: 1px solid rgba(0, 0, 0, 0.125);" />
+                                                    <button class="qty-up" data-id="1" onclick="addCountForProduct(event)">+</button>
+                                                </div>
+                                                <form method="post">
+                                                    <button  name="wishlist-submit" class="btn text-danger border-right" onclick="saveCart(event)">Save for later</button>
+                                                </form>
+                                                <form method="post">
+                                                    <button type="submit" name="delete-cart-submit" class="btn text-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                            <div class="col-2" style="padding-top: 20px;">
+                                                <span class="cart-price text-right text-danger">Price</span>
+                                                <p class="cart-price text-right text-danger">{{Subtotal}}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    {{!-- <form method="post">
-                                        <button type="submit" name="wishlist-submit" class="btn text-danger border-right">Save for later</button>
-                                    </form>
-                                    <form method="post">
-                                        <button type="submit" name="delete-cart-submit" class="btn text-danger">Delete</button>
-                                    </form> --}}
+                                {{/each}}
+                                <div style="margin-left: 70%;">
+                                    <button name="wishlist-submit" class="btn btn-danger"  onClick="createBill(event)">Tạo hóa đơn</button>
                                 </div>
                             </div>
-                            <div class="col-2">
-                                <p class="cart-price text-right text-danger">0VND</p>
-                            </div>
-                        </div>
-                        <div class="row border-top pt-2">
-                            <div class="col-2">
-                                <img src="../images/image.png" class="cart-img img-fluid">
-                            </div>
-                            <div class="col-8">
-                                <h4 class="text-capitalize">Tên sản phẩm</h4>
-                                <p class="text-capitalize">By nhà cung cấp</p>
-                                <div class="group-landscape">
-                                    <div class="quantity d-flex flex-row">
-                                        <button class="qty-down" data-id="1">-</button>
-                                        <input type="text" disabled class="quantity-input text-center" maxlength="2" size="6" value="1" style="border: 1px solid rgba(0, 0, 0, 0.125);" />
-                                        <button class="qty-up" data-id="1">+</button>
-                                    </div>
-                                    <form method="post">
-                                        <button type="submit" name="wishlist-submit" class="btn text-danger border-right">Save for later</button>
-                                    </form>
-                                    <form method="post">
-                                        <button type="submit" name="delete-cart-submit" class="btn text-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <p class="cart-price text-right text-danger">0VND</p>
-                            </div>
-                        </div>
-                        <div class="row border-top pt-2">
-                            <div class="col-2">
-                                <img src="../images/image.png" class="cart-img img-fluid">
-                            </div>
-                            <div class="col-8">
-                                <h4 class="text-capitalize">Tên sản phẩm</h4>
-                                <p class="text-capitalize">By nhà cung cấp</p>
-                                <div class="group-landscape">
-                                    <div class="quantity d-flex flex-row">
-                                        <button class="qty-down" data-id="1">-</button>
-                                        <input type="text" disabled class="quantity-input text-center" maxlength="2" size="6" value="1" style="border: 1px solid rgba(0, 0, 0, 0.125);" />
-                                        <button class="qty-up" data-id="1">+</button>
-                                    </div>
-                                    <form method="post">
-                                        <button type="submit" name="wishlist-submit" class="btn text-danger border-right">Save for later</button>
-                                    </form>
-                                    <form method="post">
-                                        <button type="submit" name="delete-cart-submit" class="btn text-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <p class="cart-price text-right text-danger">0VND</p>
-                            </div>
+                        {{/each}}
+                        <div class="cart-item">
+                            <h2>Danh sách hóa đơn của bạn</h2>     
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                    <th scope="col">Mã hóa đơn</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th scope="col">Mã Cửa hàng</th>
+                                    <th scope="col">Chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each listBill}}
+                                        <tr>
+                                        <th scope="row">{{InvoiceID}}</th>
+                                        <td>{{OrderStatusName}}</td>
+                                        <td>{{ShopID}}</td>
+                                        <td><a href="http://">Chi tiết</a></td>
+                                        </tr>
+                                    {{/each}}
+                                </tbody>
+                                </table>
                         </div>
                     </div>
                 </div>
+                {{!-- <div class="col-9 cart-list">
+                    <h2>Hóa đơn của bạn</h2>
+                    <div class="cart-item">
+                     
+                    </div>
+                </div> --}}
+                {{#each acc}}
+                {{acc}}
                 <div class="col-3 subtotal d-flex flex-column">
                     <form action="paymentConfirm.php" method="POST">
                         <div class="cart-shipping bg-light form-group">
                             <p class="heading">
                                 <span><b>Delivery to</b></span>
-                                <span><a href="">Modify</a></span>
+                                <span><a href="">Modif</a></span>
                             </p>
                             <p class="title">
-                                <span class="name border-right"><b>họ và tên</b></span>
-                                <span class="phone"><b>123456789</b></span>
+                                <span class="name border-right"><b>Họ và tên</b></span>
+                                <span class="phone"><b>{{FullName}}</b></span>
                             </p>
-                            <span class="address text-secondary">
-                                135B Trần Hưng Đạo, Phường Cầu Ông Lãnh, Quận 1, Hồ Chí Minh
-                            </span>
+                             <p class="title">
+                                <span class="name border-right"><b>Địa chỉ</b></span>
+                                <span class="phone"><b>{{Address}}</b></span>
+                            </p>
+                             <p class="title">
+                                <span class="name border-right"><b>ĐT</b></span>
+                                <span class="phone"><b>{{PhoneNumber}}</b></span>
+                            </p>
+                             <p class="title">
+                                <span class="name border-right"><b>Email</b></span>
+                                <span class="phone"><b>{{Email}}</b></span>
+                            </p>
                         </div>
                         <div class="cart-promotion bg-light form-group">
                             <p class="heading">
@@ -174,116 +178,7 @@
                         <input class="btn btn-danger form-control" type="submit" name="payment-submit" value="Proceed to buy">
                     </form>
                 </div>
-            </div>
-        </section>
-        <!-- <?php include('template/wishlist.php') ?> -->
-        <section id="cart" class="container-fluid">
-            {{!-- <h2>Wishlist</h2> --}}
-            <div class="row w-75">
-                <div class="col-9 bg-light cart-list">
-                    <div class="cart-item">
-                        <div class="row border-top pt-2">
-                            <div class="col-2">
-                                <img src="../images/image.png" class="cart-img img-fluid">
-                            </div>
-                            <div class="col-8">
-                                <h4 class="text-capitalize">Tên sản phẩm</h4>
-                                <p class="text-capitalize">By nhà cung cấp</p>
-                                <div class="group-landscape">
-                                    <div class="quantity d-flex flex-row">
-                                        <button class="qty-down" data-id="1">-</button>
-                                        <input type="text" disabled class="quantity-input text-center" maxlength="2" size="6" value="1" style="border: 1px solid rgba(0, 0, 0, 0.125);" />
-                                        <button class="qty-up" data-id="1">+</button>
-                                    </div>
-                                    <form method="post">
-                                        <button type="submit" name="wishlist-submit" class="btn text-danger border-right">Save for later</button>
-                                    </form>
-                                    <form method="post">
-                                        <button type="submit" name="delete-cart-submit" class="btn text-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <p class="cart-price text-right text-danger">0VND</p>
-                            </div>
-                        </div>
-                        <div class="row border-top pt-2">
-                            <div class="col-2">
-                                <img src="../images/image.png" class="cart-img img-fluid">
-                            </div>
-                            <div class="col-8">
-                                <h4 class="text-capitalize">Tên sản phẩm</h4>
-                                <p class="text-capitalize">By nhà cung cấp</p>
-                                <div class="group-landscape">
-                                    <div class="quantity d-flex flex-row">
-                                        <button class="qty-down" data-id="1">-</button>
-                                        <input type="text" disabled class="quantity-input text-center" maxlength="2" size="6" value="1" style="border: 1px solid rgba(0, 0, 0, 0.125);" />
-                                        <button class="qty-up" data-id="1">+</button>
-                                    </div>
-                                    <form method="post">
-                                        <button type="submit" name="wishlist-submit" class="btn text-danger border-right">Save for later</button>
-                                    </form>
-                                    <form method="post">
-                                        <button type="submit" name="delete-cart-submit" class="btn text-danger">Delete</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <p class="cart-price text-right text-danger">0VND</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>  
-            </div>
-        </section>
-        <section id="new-items">
-            <h2>Danh mục sản phẩm 1</h2>
-            <hr>
-            <div class="row my-3 mx-3" style="padding: 30px 50px 30px 50px;">
-                <div class="col-3">
-                    <div class="card">
-                        <img src="../images/image.png" alt="" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Tên sản phẩm</h4>
-                            <p class="text-uppercase">Thông tin sản phẩm</p>
-                            <p class="price">Giá sản phẩm</p>
-                            <a href="" class="btn btn-primary">Mua hàng</a>
-                        </div>
-                    </div>
-                </div>
-                {{!-- <div class="col-3">
-                    <div class="card">
-                        <img src="../img/image.png" alt="" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Tên sản phẩm</h4>
-                            <p class="text-uppercase">Thông tin sản phẩm</p>
-                            <p class="price">Giá sản phẩm</p>
-                            <a href="" class="btn btn-primary">Mua hàng</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card">
-                        <img src="../img/image.png" alt="" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Tên sản phẩm</h4>
-                            <p class="text-uppercase">Thông tin sản phẩm</p>
-                            <p class="price">Giá sản phẩm</p>
-                            <a href="" class="btn btn-primary">Mua hàng</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card">
-                        <img src="../img/image.png" alt="" class="card-img-top">
-                        <div class="card-body">
-                            <h4 class="card-title">Tên sản phẩm</h4>
-                            <p class="text-uppercase">Thông tin sản phẩm</p>
-                            <p class="price">Giá sản phẩm</p>
-                            <a href="" class="btn btn-primary">Mua hàng</a>
-                        </div>
-                    </div>
-                </div> --}}
+                {{/each}}
             </div>
         </section>
     </main>
@@ -332,7 +227,16 @@
             <p>&copy; Copyright 2021. Design By <a href="">Nhóm 5</a> </p>
         </div>
     </div>
-
+    <script>
+        var cart = {{{cartForClientJS}}}
+        var stringCart = JSON.stringify(cart)
+        localStorage.setItem('shoppingCart', stringCart)
+        var infoAcc = {{{accForClient}}}
+        var stringInfo = JSON.stringify(infoAcc)
+        localStorage.setItem('account', stringInfo)
+        
+        
+    </script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -342,8 +246,8 @@
 
     <!--  isotope plugin cdn  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-
+    <script src="../../javascripts/addProductToCart.js"></script>
     <!-- Custom Javascript -->
-    {{!-- <script src="../index.js"></script> --}}
+    <script src="../../javascripts/addProductToCart.js"></script>
 </body>
 </html>
