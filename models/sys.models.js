@@ -25,7 +25,22 @@ const highestRevenueShops = async () => {
     }
 }
 
+const getTopShopByMonthAndYear = async (body) => {
+    try {
+      let pool = await sql.connect(config);
+      let result = await pool
+        .request()
+        .input("input", sql.Char, body)
+        .execute("sp_topShopByMonthAndYear");
+      return result.recordset;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+
 module.exports = {
     bestSellingProducts,
-    highestRevenueShops
+    highestRevenueShops,
+    getTopShopByMonthAndYear
 }

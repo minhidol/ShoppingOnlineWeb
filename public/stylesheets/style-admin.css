@@ -42,6 +42,7 @@ body{
     position: relative;
     width: 100%;
     list-style: none;
+    padding-top: 10px;
 }
 
 .navigation ul li:hover{
@@ -223,7 +224,6 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    height: 100px;
 }
 
 .cardHeader h2{
@@ -321,13 +321,13 @@ body{
 
 .details .topShop table thead tr td:nth-child(1){
     text-align: justify;
-    padding-left: 12%;
+    padding-left: 10%;
 }
 
 .details .topShop table tbody tr td:nth-child(1){
-    text-align: justify;
+    text-align: center;
     padding-right: 0;
-    padding-left: 10%;
+    padding-left: 5%;
 }
 
 .details .topShop table thead tr td:nth-child(2),
@@ -337,33 +337,6 @@ body{
     padding-right: 10px;
 }
 
-.rating {
-    position: relative;
-    padding: 2px 4px;
-    background: #f00;
-    color: #fff;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 300;
-    letter-spacing: 1px;
-}
-
-.delivered{
-    background: #8de02c;
-}
-
-.pending{
-    background: #f9ca3f;
-}
-
-.return {
-    background: red;
-}
-
-.inprogress{
-    background: #179;
-}
-
 .details .topShop{
     position: relative;
     display: grid;
@@ -371,3 +344,30 @@ body{
     background: #fff;
     padding: 20px;
 }
+
+.filter {
+    position: relative;
+    min-height: 80px;
+}
+
+.filter form input{
+    position: absolute;
+    right: 100px;
+    top: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 5px;
+}
+
+.filter form button {
+    position: absolute;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    right: 2px;
+    top: 5px;
+    width: 80px;
+    background: #03a9f4;
+}
+
+
+

@@ -4,9 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" type="text/css" href="../stylesheets/style-admin.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/12e9018ae9.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+   
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
     <script src="../javascripts/sys.js"></script>
 </head>
 <body>
@@ -16,7 +22,7 @@
                 <li>
                     <a href="#">
                         <span class="icon"><i class="fab fa-shopify fa-2x"></i></span>
-                        <span class="title"><h2>Shopping Online </h2></span>
+                        <span class="title"><h3>Shopping Web </h3></span>
                     </a>                
                 </li>
                 <li>
@@ -136,6 +142,13 @@
                     <a href="#" class="btn">View All</a>
                 </div>
 
+                <div class="filter" >
+                    <form action="/dashboard/result" class="form-inline">
+                       <input type="month" id="input" name="inputFilter" min="1970-01" max="2022-12" value={{inputFilter}}>
+                       <button type = "submit" class="btn btn-primary" onclick="getInput()" >Filter</button> 
+                    </form>
+                </div>
+
                 <table id="tableData">
                     <thead>
                         <tr>
@@ -174,30 +187,14 @@
             navigation.classList.toggle('active');
             main.classList.toggle('active');
         }
-        // <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
 
-        var xValues = [50,60,70,80,90,100,110,120,130,140,150];
-        var yValues = [7,8,8,9,9,9,10,11,14,14,15];
-
-        new Chart("myChart", {
-        type: "line",
-        data: {
-            labels: xValues,
-            datasets: [{
-            fill: false,
-            lineTension: 0,
-            backgroundColor: "rgba(0,0,255,1.0)",
-            borderColor: "rgba(0,0,255,0.1)",
-            data: yValues
-            }]
-        },
-        options: {
-            legend: {display: false},
-            scales: {
-            yAxes: [{ticks: {min: 6, max:16}}],
-            }
+        function getInput(){
+            var monthControl = document.querySelector('input[type="month"]');
+            document.getElementById('input').value = monthControl.value;
+            return monthControl.value;
         }
-        });
+
+       
     </script>
 
 </body>
