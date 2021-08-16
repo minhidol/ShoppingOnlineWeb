@@ -6,6 +6,7 @@ router.use(bodyParser.json());
 const dashboard = require("../controllers/sys.controllers");
 
 router.get("/", dashboard.showDashboard);
+router.get("/result", dashboard.showDashboard2);
 
 
 module.exports = router

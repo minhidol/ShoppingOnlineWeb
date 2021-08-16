@@ -81,13 +81,13 @@ const updateProduct = async (body) => {
     let result = await pool
       .request()
       .input("tensp", sql.Char, body.productName)
-      .input("type", sql.Int, body.typeid)
       .input("des", sql.Char, body.description)
       .input("price", sql.Money, body.price)
       .input("stock", sql.Int, body.stockqty)
-      .input("datepos", sql.Date, body.datePost)
       .input("img", sql.Char, body.imgurl)
-      .execute("sp_InsertProduct");
+      .input("productid", sql.Int, body.productid)
+      .input("shopid", sql.Int, body.shopid)
+      .execute("sp_UpdateProduct");
     console.log(result)
     return result;
   } catch (error) {

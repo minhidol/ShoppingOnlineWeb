@@ -1,4 +1,5 @@
 //cua Minh
+<<<<<<< HEAD
 const config = {
   user: "sa",
   password: "123456",
@@ -12,6 +13,21 @@ const config = {
   },
   port: 1433,
 };
+=======
+// const config = {
+//   user: "sa",
+//   password: "123456",
+//   server: "localhost",
+//   database: "ShoppingOnlineWeb",
+//   options: {
+//     trustedconnection: true,
+//     enableArithAbort: true,
+//     instancename: "SQLEXPRESS",
+//     trustServerCertificate: true,
+//   },
+//   port: 1433,
+// };
+>>>>>>> 0fc7933a836e9ab06e2f21799211c16aca5ef3f9
 
 //của Khoa
 // const sql = require("mssql");
@@ -43,11 +59,17 @@ const config = {
 //   port: 1433,
 // };
 
-// const config = {
-//   user: "han181",
-//   password: "123456",
-//   server: "LAPTOP-IQKFBUD7\\HAN181",
-// };
+const config = {
+  user: "han181",
+  password: "123456",
+  server: "LAPTOP-IQKFBUD7\\HAN181",
+  database: "ShoppingOnlineWeb",
+  options: {
+    encrypt: true,
+    trustServerCertificate: true,
+  },
+  port: 1433,
+};
 /* const config = {
   user: "sa",
   password: "Password123@jkl#",

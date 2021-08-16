@@ -1,5 +1,6 @@
 const shopModel = require("../models/shop.models");
 const ratingModel = require("../models/rating.models");
+const productModel = require("../models/product.models")
 
 const shopInterface = async (req, res) => {
   try {
@@ -213,10 +214,15 @@ const insProduct = async(req, res) => {
 const updProduct = async(req, res) => {
   try {
     const data = await req.params['shopid']
+    const productid = await req.params['id']
     const data2 = await shopModel.getShopById(req.params);
+    const product = await productModel.getProductById(req.params)
+    console.log(data2)
     res.render("shopUpdateProduct.hbs", {
       shopid: data,
-      shop: data2.recordset[0]
+      shop: data2.recordset[0],
+      productid: productid,
+      product: product.recordset[0]
     });
   } catch (err) {
     console.log("Error when update", err.message);
@@ -231,5 +237,6 @@ module.exports = {
   RateProduct,
   getShop,
   showInvoiceStatus,
-  insProduct
+  insProduct,
+  updProduct
 };

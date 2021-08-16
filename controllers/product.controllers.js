@@ -31,7 +31,7 @@ const getProductById = async (req, res) => {
 const getAllProducts = async (req, res) => {
   try {
     const data = await product.getAllProducts(parseInt(req.params['pageid']) - 1);
-    res.render('testCartProductIndex.hbs', {products: data.recordset, page: req.params['pageid']});
+    res.render('home.hbs', {products: data.recordset, page: req.params['pageid']});
   }
   catch (er) {
     console.log("Error when get products", err.message);
@@ -69,11 +69,22 @@ const insProduct = async (req, res) => {
   }
 }
 
+const updProduct = async (req, res) => {
+  try {
+    const data = await product.updateProduct(req.body)
+    res.json(data)
+  }
+  catch(err) {
+    console.log('error', err)
+  }
+}
+
 module.exports = {
   getProductType,
   getProductById,
   getAllProducts,
   searchProducts,
   delProduct,
+  updProduct,
   insProduct
 };
