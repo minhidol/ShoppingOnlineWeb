@@ -3,7 +3,7 @@ const config = {
   user: "sa",
   password: "123456",
   server: "localhost",
-  database: "ShoppingOnlineWeb",
+  database: "ShoppingOnlineWeb1313",
   options: {
     trustedconnection: true,
     enableArithAbort: true,

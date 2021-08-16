@@ -56,6 +56,7 @@ const showCart = async(req, res) => {
                 listBill[i].OrderStatusName = 'Đã xác nhận'
             }
         }
+        //res.json({data: shoppingCart})
         res.render('cartProduct.hbs', {
             cart: shoppingCart, 
             cartForClientJS: JSON.stringify(shoppingCart),

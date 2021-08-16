@@ -137,8 +137,6 @@ const createBill = async (body) => {
         .input("acc", sql.Int, body.customer)
         .execute("addProductToInvoices");
     }
-    console.log(result);
-
     return result.rowsAffected;
   } catch (error) {
     throw error;
