@@ -14,6 +14,7 @@ router.route('/getBill/:accID')
     .get(billController.showCart)
 router.post('/createBill', billController.createBill)
 router.get('/showBill', billController.showBill)
+router.post('/updateStatusBill', billController.updateStatusBill)
 
 // shop
 router.post('/shopOfBill', billController.getShopInfo)

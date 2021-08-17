@@ -54,20 +54,27 @@
         </section>
         {{/with}}
         <section id="banner">
-            <!-- <div class="owl-carousel owl-theme" style="padding: 30px 50px 30px 50px;">
-                <div class="item" style="width: 100%;">
-                  <img src="../img/banner.png" alt="Banner1">
-                </div>
-                <div class="item" style="width: 100%;">
-                  <img src="../img/banner.png" alt="Banner2">
-                </div>
-                <div class="item" style="width: 100%;">
-                  <img src="../img/banner.png" alt="Banner3">
-                </div>
-            </div> -->
-            <div class="item" style="width: 70%; margin: auto;">
-                <img src="../images/banner.png" alt="Banner3">
-            </div>
+            <h2>Danh sách hóa đơn</h2>
+            <hr>
+           <table class="table table-bordered" style="background-color: white;">
+            <thead>
+                <tr>
+                    <th scope="col">Ngày tạo</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Trạng thái đơn hàng</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">
+                        Chi tiết
+                    </th>
+                    <th scope="col">
+                        Cập nhật
+                    </th>
+                </tr>
+            </thead>
+            <tbody id = "body-table">
+                
+            </tbody>
+            </table>
         </section>
         <section id="new-items" class="mt-5">
             <div class="row">
@@ -171,6 +178,78 @@
 
     <!-- Custom Javascript -->
     <script>
+        async function postProduct(url, body) {
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            });
+            return response.json();
+        }
+
+        //var buttonUpdate = document.getElementById('update-status')
+        async function UpdateBill(event){
+            var row = event.path[2]
+            var idOfStatus = row.childNodes[3].childNodes[0].getAttribute('id')
+            var select_status = document.getElementById(idOfStatus).value
+            var billID = row.childNodes[2].innerHTML
+            const body = {
+                billID: billID,
+                status: select_status
+            }
+            
+            //console.log(body)
+            const result = await postProduct('http://localhost:3000/bill/updateStatusBill', body)
+             if (result.ErrorCode == 0) {
+                alert("Lưu thành công!");
+            } else {
+                alert("Lưu thất bại!");
+            }
+        }
+        var listBill = {{{listBillOfShopJS}}}
+        var table_string = ''
+        var count = 0;
+        for(var i = 0; i < listBill.length; i++){
+            count++;
+            var arrayStatus = ['Ðã hoàn thành', 'Đã hủy', 'Chưa xác nhận', 'Đang giao hàng', 'Đã xác nhận']
+            var billStatus = '<option>' + listBill[i].OrderStatusName +'</option>';
+            const index = arrayStatus.indexOf(listBill[i].OrderStatusName);
+            if (index > -1) {
+                arrayStatus.splice(index, 1);
+            }
+            for(var j = 0; j < arrayStatus.length; j++){
+                billStatus += '<option>' + arrayStatus[j]+'</option>';
+            }
+            table_string += '<tr style="">'
+                    +   '<th scope="row">'+ listBill[i].CreatedDate+'</th>'
+                    +    '<td>'+listBill[i].Address+'</td>'
+                    +    '<td style="display:none">'+listBill[i].InvoiceID+'</td>'
+                    +    '<td>'
+                    +        '<select '
+                    +           ' class="form-control form-control-lg" '
+                    +            'id='+'select_status_'+count + ' '
+                    +            'style="font-size:14px; color: #212529">'
+                    +            billStatus
+                    +       ' </select>'
+                    +    '</td>'
+                    +    '<td>'
+                    +        listBill[i].TotalAmount
+                    +   ' </td>'
+                    +    '<th scope="col">'
+                    +        '<a href="">Chi tiết</a>'
+                    +    '</th>'
+                    +    '<th scope="col">'
+                    +        '<button type="button" class="btn btn-success" id = "update-status" onClick="UpdateBill(event)">Cập nhật</button>'
+                    +    '</th>'
+                    +'</tr>'
+        }
+
+        var table = document.getElementById('body-table')
+        table.innerHTML = table_string;
+
+
         del = async () => {
             await fetch('http://localhost:3000/product/delete/' + this.event.target.id, {
                 method: 'GET'

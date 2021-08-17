@@ -157,6 +157,47 @@ const getBillForAccount = async (query) => {
   }
 };
 
+const getBillForShop = async(query) => {
+  try {
+    let pool = await sql.connect(config);
+    let result = await pool.request()
+      .query(`select I.InvoiceID, O.OrderStatusName, I.InvoiceStatus, I.TotalAmount, A.Address, I.CreatedDate, I.InvoiceStatus
+                from Invoices as I 
+                join OrderStatus as O
+                on I.InvoiceStatus = O.OrderStatusID
+                join Account as A
+                on I.CustomerAccountID = A.AccountID
+                where I.ShopID = 1`);
+    return result.recordset;
+  } catch (error) {
+    throw error;
+  }
+}
+
+const updateStatusBill = async(body) => {
+  try {
+    for(var i = 0; i < 5; i++){
+      if(body.status == 'Ðã hoàn thành')
+        body.status = 1
+      else if(body.status == 'Đã hủy')
+        body.status = 2
+      else if(body.status == 'Chưa xác nhận')
+        body.status = 3
+      else if(body.status == 'Ðang giao hàng')
+        body.status = 4
+      else if(body.status == 'Đã xác nhân')
+        body.status = 5
+    }
+    //console.log(body)
+    let pool = await sql.connect(config);
+    let result = await pool.request()
+        .query(`Update Invoices set InvoiceStatus = ${body.status} where InvoiceID = ${body.billID}`);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   getProductForTestCart,
   addProductToCart,
@@ -167,4 +208,6 @@ module.exports = {
   getVoucher,
   createBill,
   getBillForAccount,
+  getBillForShop,
+  updateStatusBill
 };
