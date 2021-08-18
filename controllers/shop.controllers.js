@@ -1,6 +1,6 @@
 const shopModel = require("../models/shop.models");
 const ratingModel = require("../models/rating.models");
-const productModel = require("../models/product.models")
+const productModel = require("../models/product.models");
 
 const shopInterface = async (req, res) => {
   try {
@@ -129,7 +129,7 @@ const RateProduct = async (req, res) => {
       req.body.comment
     );
     res.send(
-      `<script type="text/javascript"> alert("Rating success");</script>`
+      `<script type="text/javascript"> alert("Rating success"); window.location.href='http://localhost:3000/product/getProductById/${req.body.productIDComment}'</script>`
     );
 
     // console.log(req.body);
@@ -143,13 +143,13 @@ const getShop = async (req, res) => {
     const data2 = await shopModel.getProductByShop(req.params);
     res.render("shopDetail.hbs", {
       shop: data.recordset[0],
-      products: data2.recordset
+      products: data2.recordset,
     });
   } catch (err) {
     console.log("Error when get shop by id", err.message);
     res.json("Error when get shop by id ", err.message);
   }
-}
+};
 
 const showInvoiceStatus = async (req, res) => {
   try {
@@ -197,38 +197,38 @@ const showInvoiceStatus = async (req, res) => {
   } catch (error) {}
 };
 
-const insProduct = async(req, res) => {
+const insProduct = async (req, res) => {
   try {
-    const data = await req.params['shopid']
+    const data = await req.params["shopid"];
     const data2 = await shopModel.getShopById(req.params);
     res.render("shopInsertProduct.hbs", {
       shopid: data,
-      shop: data2.recordset[0]
+      shop: data2.recordset[0],
     });
   } catch (err) {
     console.log("Error when insert", err.message);
     res.json("Error when insert ", err.message);
   }
-}
+};
 
-const updProduct = async(req, res) => {
+const updProduct = async (req, res) => {
   try {
-    const data = await req.params['shopid']
-    const productid = await req.params['id']
+    const data = await req.params["shopid"];
+    const productid = await req.params["id"];
     const data2 = await shopModel.getShopById(req.params);
-    const product = await productModel.getProductById(req.params)
-    console.log(data2)
+    const product = await productModel.getProductById(req.params);
+    console.log(data2);
     res.render("shopUpdateProduct.hbs", {
       shopid: data,
       shop: data2.recordset[0],
       productid: productid,
-      product: product.recordset[0]
+      product: product.recordset[0],
     });
   } catch (err) {
     console.log("Error when update", err.message);
     res.json("Error when update ", err.message);
   }
-}
+};
 
 module.exports = {
   shopInterface,
@@ -238,5 +238,5 @@ module.exports = {
   getShop,
   showInvoiceStatus,
   insProduct,
-  updProduct
+  updProduct,
 };
