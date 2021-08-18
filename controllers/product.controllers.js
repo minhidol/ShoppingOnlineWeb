@@ -33,7 +33,7 @@ const getAllProducts = async (req, res) => {
     const data = await product.getAllProducts(parseInt(req.params['pageid']) - 1);
     res.render('home.hbs', {products: data.recordset, page: req.params['pageid']});
   }
-  catch (er) {
+  catch (err) {
     console.log("Error when get products", err.message);
     res.json("Error when get products", err.message);
   }

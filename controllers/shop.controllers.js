@@ -1,6 +1,7 @@
 const shopModel = require("../models/shop.models");
 const ratingModel = require("../models/rating.models");
 const productModel = require("../models/product.models");
+const billModel = require("../models/bill.models");
 
 const shopInterface = async (req, res) => {
   try {
@@ -141,9 +142,22 @@ const getShop = async (req, res) => {
   try {
     const data = await shopModel.getShopById(req.params);
     const data2 = await shopModel.getProductByShop(req.params);
+    const listBillOfShop = await billModel.getBillForShop(1);
+    for (var i = 0; i < listBillOfShop.length; i++) {
+      if (listBillOfShop[i].InvoiceStatus[0] == 2) {
+        listBillOfShop[i].OrderStatusName = "Đã hủy";
+      } else if (listBillOfShop[i].InvoiceStatus[0] == 3) {
+        listBillOfShop[i].OrderStatusName = "Chưa xác nhận";
+      } else if (listBillOfShop[i].InvoiceStatus[0] == 5) {
+        listBillOfShop[i].OrderStatusName = "Đã xác nhận";
+      }
+    }
+    console.log(listBillOfShop);
     res.render("shopDetail.hbs", {
       shop: data.recordset[0],
       products: data2.recordset,
+      listBillOfShop: listBillOfShop,
+      listBillOfShopJS: JSON.stringify(listBillOfShop),
     });
   } catch (err) {
     console.log("Error when get shop by id", err.message);

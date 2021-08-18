@@ -57,6 +57,7 @@ const showCart = async(req, res) => {
             }
         }
         //res.json({data: shoppingCart})
+        //console.log(JSON.stringify(shoppingCart))
         res.render('cartProduct.hbs', {
             cart: shoppingCart, 
             cartForClientJS: JSON.stringify(shoppingCart),
@@ -115,7 +116,16 @@ const getShopInfo = async(req, res) => {
     }
 }
 
-
+const updateStatusBill = async(req, res) => {
+    try {
+        var body = req.body
+        const result = await billModel.updateStatusBill(body)
+        res.json({ErrorCode: 0, data: result})
+    } catch (error) {
+        console.log(error)
+        res.json({Error: 1, data: null, message: error.message})
+    }
+}
 
 module.exports = {
     showCart,
@@ -124,5 +134,6 @@ module.exports = {
     updateCart,
     createBill,
     showBill,
-    getShopInfo
+    getShopInfo,
+    updateStatusBill
 }
